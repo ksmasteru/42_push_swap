@@ -61,8 +61,6 @@ void pb(t_stack **stack_a_head, t_stack **stack_b_head)
   t_stack *a_next;
   t_stack *a_tmp;
 
-  if (*stack_a_head == NULL)
-    return ;
   a_next = (*stack_a_head)->next;
   a_tmp = (*stack_a_head);
   (*stack_a_head) = a_next;

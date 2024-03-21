@@ -10,6 +10,28 @@ t_stack *get_tail(t_stack *head)
     return (tmp);
 }
 
+int *sort_array(int *array, int size)
+{
+    int i = 0;
+    int j = 0;
+    int temp = 0; // corrected typo from tmp to temp
+    while (i < size - 1)
+    {
+        j = i + 1;
+        while (j < size)
+        {
+            if (array[i] > array[j])
+            {
+                temp = array[i];
+                array[i] = array[j];
+                array[j] = temp;
+            }
+            j++;
+        }
+        i++;
+    }
+    return (array);
+}
 int scan_tail(int val, t_stack *tail)
 {
     /* try to return the smallest possible value */
@@ -204,30 +226,35 @@ int *args_s(int ac, int *values)
     t_stack *head;
     t_stack *tail;
     t_stack *b_head = NULL;
+    int *sorted_array;
     int index;
     int i = 0;
+    int end = 3;
+    int start = 0;
     index = 0;
     arr_to_stack(values, ac - 1, &head);
-    tail = get_tail(head);
-    while (i++ < ac  / 2)
+    sorted_array = sort_array(values, ac - 1);
+    /*for (int i = 0 ; i < ac - 1 ; i++)
+        printf("%d\n", sorted_array[i]);*/
+    while (head != NULL)
     {
-        if (head->data > head->next->data)
-            sa(&head);
-        printf("216");
-        tail = get_tail(head);
-        index = scan_tail(head->data, tail);
-        while (index-- >= 0)
+        if (head->data >= sorted_array[start] && head->data <= sorted_array[end])
         {
-            printf("%p", head);
-            rra(&head);
-            printf("rra head is %d\n", head->data);
+            pb(&head, &b_head);
+            if (end < 14)
+            {
+                start++;
+                end++;
+            }
         }
-        pb(&head, &b_head);
-        rra(&head);
+        else if (head->data < sorted_array[start])
+        {
+            pb(&head, &b_head);
+            rb(&b_head);
+        }
+        else
+            rra(&head);
     }
-    printf("stack a is \n");
-    print_stack(head);
-    printf("stack b is \n");
     print_stack(b_head);
-    return NULL;
+    return (NULL);
 }

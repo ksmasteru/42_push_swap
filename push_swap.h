@@ -39,4 +39,5 @@ int *args_s(int ac, int *values);
 int ft_atoi(char *str);
 t_stack *get_tail(t_stack *head);
 void arr_to_stack(int *values, int size,  t_stack **head);
+int *sort_array(int *array, int size);
 #endif
