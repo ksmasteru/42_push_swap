@@ -5,7 +5,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-
+#define ANSI_COLOR_RED          "\x1b[31m"
 typedef struct s_stack{
   int data;
   struct s_stack *next;
@@ -40,4 +40,6 @@ int ft_atoi(char *str);
 t_stack *get_tail(t_stack *head);
 void arr_to_stack(int *values, int size,  t_stack **head);
 int *sort_array(int *array, int size);
+int get_max_index(t_stack *head, int *max_value);
+int stack_len(t_stack *head);
 #endif

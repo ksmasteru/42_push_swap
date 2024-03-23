@@ -58,3 +58,18 @@ int push_value(int a, t_stack **head)
   new->next = tmp;
   return (0);
 }
+
+int stack_len(t_stack *head)
+{
+  int i;
+  t_stack *tmp;
+
+  i = 0;
+  tmp = head;
+  while (tmp != NULL)
+  {
+    tmp = tmp->next;
+    i++;
+  }
+  return (i);
+}

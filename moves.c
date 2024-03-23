@@ -94,7 +94,6 @@ void rb(t_stack **stack_b_head)
 //The first element becomes the last one.
   t_stack *tmp;
   t_stack *temp;
-  
   temp = (*stack_b_head)->next;
   tmp = *stack_b_head;
   while (tmp->next != NULL)

@@ -1,5 +1,31 @@
 #include "push_swap.h"
 
+int get_max_index(t_stack *head, int *max_value)
+{
+    // return the index of of max number.
+    int imax;
+    t_stack *tmp;
+    int i;
+    int j;
+
+    j = 0;
+    i = 0;
+    tmp = head;
+    imax = head->data;
+    *max_value = imax;
+    while (tmp != NULL)
+    {
+        if (tmp->data > imax)
+        {
+            imax = tmp->data;
+            *max_value = imax;
+            i = j;
+        }
+        tmp = tmp->next;
+        j++;
+    }
+    return (i);
+}
 t_stack *get_tail(t_stack *head)
 {
     t_stack *tmp;
@@ -14,7 +40,7 @@ int *sort_array(int *array, int size)
 {
     int i = 0;
     int j = 0;
-    int temp = 0; // corrected typo from tmp to temp
+    int temp = 0;
     while (i < size - 1)
     {
         j = i + 1;
@@ -34,7 +60,7 @@ int *sort_array(int *array, int size)
 }
 int scan_tail(int val, t_stack *tail)
 {
-    /* try to return the smallest possible value */
+
     int arr[3];
     int smallest;
     int index;
@@ -112,8 +138,7 @@ int *args_3(int ac, int *values)
     t_stack *head;
     t_stack *b_head;
 
-    b_head = NULL;// hmm
-    //get the smallest onne from stack a and push it to stack b
+    b_head = NULL;
     arr_to_stack(values, ac - 1, &head);
     if ((head->data) > (head->next->data))
         sa(&head);
@@ -132,12 +157,7 @@ int *args_4(int ac, int *values)
     int tmp;
     int temp = 0;
     int *vals;
-    //push b
-    // sort a as 3
-    // push a
-    // ra if necessary
-    // it is about the journey of becoming great discovering onself true potential
-    // make a refernce to tail to avoid travel
+
     t_stack *head;
     t_stack *b_head = NULL;
     t_stack *tail;
@@ -146,7 +166,7 @@ int *args_4(int ac, int *values)
     tail = head->next->next->next;
     printf("tail data is %d\n", tail->data);
 
-    // get bigest on a push it to b
+
     if (head->data < head->next->data)
         sa(&head);
     if (head->data < tail->data)
@@ -154,7 +174,6 @@ int *args_4(int ac, int *values)
     if (head->data < tail->data)
         rra(&head);
     pb(&head, &b_head);
-    // elemnts on b fix.
     if ((head->data) > (head->next->data))
         sa(&head);
     if (head->data > head->next->next->data)
@@ -163,7 +182,6 @@ int *args_4(int ac, int *values)
     if(head->data > head->next->data)
         sa(&head);
     pa(&head, &b_head);
-    // now push the first "biggest to a and ra"
     pa(&head, &b_head);
     ra(&head);
     print_stack(head);
@@ -171,7 +189,6 @@ int *args_4(int ac, int *values)
 }
 int *args_5(int ac, int *values)
 {
-    // push too big elements to b
     t_stack *head;
     t_stack *tail;
     t_stack *b_head = NULL;
@@ -179,12 +196,11 @@ int *args_5(int ac, int *values)
     arr_to_stack(values, ac - 1, &head);
     tail = head->next->next->next->next;
     printf("tail data is %d\n", tail->data);
-    // getting 3 smallest and pushing it to b
     if ((head->data) > (head->next->data))
         sa(&head);
     if (head->data > tail->data)
         rra(&head);
-    if (head->data > tail->data) //overkill ?
+    if (head->data > tail->data)
         rra(&head);
     pb(&head, &b_head);
     tail = head->next->next->next;
@@ -201,18 +217,14 @@ int *args_5(int ac, int *values)
         rra(&head);
     if (head->data > head->next->next->data)
         rra(&head);
-    // this next is absolutly bigger than the other two nop
-    // items in b should be in descending order
-    // so before pushing should be swapped
+
     if(b_head->data < b_head->next->data)
         sb(&b_head);
     pb(&head, &b_head);
-    // make sure that these are in asceding order
     if (b_head->data < b_head->next->next->data)
         rb(&b_head);
     if (b_head->data < b_head->next->data)
         sb(&b_head);
-    // now making a ascending then pushing all of b.
     if (head->data > head->next->data)
         sa(&head);
     pa(&head, &b_head);
@@ -229,32 +241,75 @@ int *args_s(int ac, int *values)
     int *sorted_array;
     int index;
     int i = 0;
-    int end = 3;
+    int end_value;
+    int end;
+    if (ac - 1 > 5 && ac - 1 <= 20)
+        end = 3;
+    else if (ac - 1 <= 100)
+        end = 15;
+    else if (ac - 1 <= 500)
+        end = 35;
+    else
+        end = 45;
     int start = 0;
     index = 0;
+    int x = 0;
+    int len = 0;
+    int max_value;
     arr_to_stack(values, ac - 1, &head);
     sorted_array = sort_array(values, ac - 1);
-    /*for (int i = 0 ; i < ac - 1 ; i++)
-        printf("%d\n", sorted_array[i]);*/
     while (head != NULL)
     {
         if (head->data >= sorted_array[start] && head->data <= sorted_array[end])
         {
             pb(&head, &b_head);
-            if (end < 14)
+            if (end < ac - 2)
             {
                 start++;
                 end++;
             }
+            if ((b_head->next != NULL) && (b_head->data < b_head->next->data))
+                sb(&b_head);
         }
         else if (head->data < sorted_array[start])
         {
             pb(&head, &b_head);
+            if (end < ac - 2)
+            {
+                start++;
+                end++;
+            }
             rb(&b_head);
+            if ((b_head->next != NULL) && (b_head->data < b_head->next->data))
+                sb(&b_head);
         }
         else
             rra(&head);
     }
-    print_stack(b_head);
+    //print_stack(b_head);
+    while (b_head != NULL)
+    {
+        x = get_max_index(b_head, &max_value);
+        //printf("max index is %d\n", x);
+       // printf("max value is %d\n",max_value);
+        len = stack_len(b_head);
+        //printf("len is %d", len);
+        if (x != 0)
+        {
+            if (x < len / 2)
+            {
+                while (b_head->data != max_value)
+                    rb(&b_head);
+            }
+            else
+            {
+                while (b_head->data != max_value)
+                    rrb(&b_head);
+            }
+        }
+        //printf("\npushed %d\n", b_head->data);
+        pa(&head, &b_head);
+    }
+    print_stack(head);
     return (NULL);
 }

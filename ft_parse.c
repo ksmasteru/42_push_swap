@@ -2,17 +2,20 @@
 
 // no duplicates
 // only numbers
-
+void print_error(char *str)
+{
+    write(2, str, strlen(str));
+}
 int ft_error(int *values, int index)
 {
     if (values != NULL)
         free(values);
     if (index == 0)
-        write (2, "Error\n", 6);
+        print_error(ANSI_COLOR_RED"Error\n");
     if (index == 1)
-        write (2, "ERROR : WRONG ARGUMENT\n", 23);
+        print_error(ANSI_COLOR_RED"Error\n");
     if (index == 2)
-        write (2, "ERROR: DUPPLICATE ARGUMENTS\n", 28);
+        print_error(ANSI_COLOR_RED"Error\n");
     exit (1);
 }
 int check_erros(char *str)
