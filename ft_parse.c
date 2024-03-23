@@ -21,14 +21,20 @@ int ft_error(int *values, int index)
 int check_erros(char *str)
 {
     int i;
-
     i = 0;
     while (str[i] == 32 || (str[i] >= 9 && str[i] <= 13))
         i++;
     if (str[i] == '-' || str[i] == '+')
         i++;
-    while (str[i] && str[i] >= '0' && str[i] <= '9')
+    while ((str[i] && str[i] >= '0' && str[i] <= '9') || ((str[i] == 32 || (str[i] >= 9 && str[i] <= 13)) || str[i] == '+' || str[i] == '-'))
+    {
+        if (str[i] == '-' || str[i] == '+')
+        {
+            if (!(str[i + 1] <= '9' && str[i + 1] >= '0'))
+                return (-1);
+        }
         i++;
+    }
     if (str[i] == '\0')
         return (0);
     else
@@ -56,9 +62,8 @@ int check_duplicates(int* values, int size)
 }
 int *ft_parse(int ac, char **av)
 {
-
     int *values;
-    if (ac < 3)
+    if (ac < 2)
         ft_error(NULL, 0);
     int i;
 
@@ -68,8 +73,13 @@ int *ft_parse(int ac, char **av)
         return (NULL);
     while (i < ac - 1)
     {
-        if (check_erros(av[i + 1]) < 0)
-            ft_error(values, 1);
+        // if (check_erros(av[i + 1]) < 0)
+        //     ft_error(values, 1);
+        if (ft_atoi(av[i + 1]) > 2147483647 || ft_atoi(av[i + 1]) < -2147483648)
+        {
+            write(1,"Error\n",6);
+            exit(1);
+        }
         values[i] = ft_atoi(av[i + 1]);
             i++;
     }

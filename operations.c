@@ -2,7 +2,6 @@
 
 int get_max_index(t_stack *head, int *max_value)
 {
-    // return the index of of max number.
     int imax;
     t_stack *tmp;
     int i;
@@ -286,14 +285,10 @@ int *args_s(int ac, int *values)
         else
             rra(&head);
     }
-    //print_stack(b_head);
     while (b_head != NULL)
     {
         x = get_max_index(b_head, &max_value);
-        //printf("max index is %d\n", x);
-       // printf("max value is %d\n",max_value);
         len = stack_len(b_head);
-        //printf("len is %d", len);
         if (x != 0)
         {
             if (x < len / 2)
@@ -307,7 +302,6 @@ int *args_s(int ac, int *values)
                     rrb(&b_head);
             }
         }
-        //printf("\npushed %d\n", b_head->data);
         pa(&head, &b_head);
     }
     print_stack(head);
