@@ -42,4 +42,9 @@ void arr_to_stack(int *values, int size,  t_stack **head);
 int *sort_array(int *array, int size);
 int get_max_index(t_stack *head, int *max_value);
 int stack_len(t_stack *head);
+char ***fill_numbers(int ac, char **av, int *num_len);
+void	free_splited(char ***res, int i);
+char	**ft_split(char *cmd, char sep);
+char	*make_words(char *str, char sep);
+int	count_words(char *cmd, char sep);
 #endif

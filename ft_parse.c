@@ -62,28 +62,57 @@ int check_duplicates(int* values, int size)
 }
 int *ft_parse(int ac, char **av)
 {
-    int *values;
+    t_stack *a_head;
+    t_stack *tmp;
+    t_stack *new;
+    char **num_str;
     if (ac < 2)
         ft_error(NULL, 0);
     int i;
+    long number;
+    int j;
 
+    int x = 0;
+    j = 0;
+    number = 0;
     i = 0;
-    values = (int *)malloc(sizeof(int) * (ac - 1));
-    if (!values)
-        return (NULL);
+    a_head = ft_lst_new(0);
+    tmp = a_head;
     while (i < ac - 1)
     {
-        // if (check_erros(av[i + 1]) < 0)
-        //     ft_error(values, 1);
-        if (ft_atoi(av[i + 1]) > 2147483647 || ft_atoi(av[i + 1]) < -2147483648)
+        j = 0;
+        num_str = ft_split(av[i + 1], 32);
+        if (num_str == NULL)
         {
-            write(1,"Error\n",6);
+            write (2, "Error\n", 6);
+            // free the ls.
             exit(1);
         }
-        values[i] = ft_atoi(av[i + 1]);
-            i++;
+        while (num_str[j] != NULL)
+        {
+            number = ft_atoi(num_str[j]);
+            if (number > 2147483647 || number < -2147483648)
+            {
+                write(1,"Error\n",6);
+                exit(1);
+            }
+            if (x == 0)
+            {
+                tmp->data = number;
+                x++;
+                j++;
+                continue;
+            }
+            new = ft_lstadd_back(tmp);
+            new->data = number;
+            tmp = new;        
+            j++;
+        }
+        i++;
     }
-    if (check_duplicates(values, ac - 1 ) < 0)
-        ft_error(values, 2);
-    return (values);
+    print_stack(a_head);
+    /*if (check_duplicates(values, ac - 1 ) < 0)
+        ft_error(values, 2);*/
+        exit(0);
+    return (0);
 }

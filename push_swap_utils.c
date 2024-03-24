@@ -73,3 +73,22 @@ int stack_len(t_stack *head)
   }
   return (i);
 }
+
+char ***fill_numbers(int ac, char **av, int *num_len)
+{
+  char ***numbers;
+  int i;
+
+  i = 0;
+  numbers = (char ***)malloc(sizeof(char **) * (ac));
+  if (numbers)
+    return (NULL);
+  while (i < ac - 1)
+  {
+    numbers[i] = ft_split(av[i + 1], ':');
+    i++;
+  }
+  *num_len = 5;
+  numbers[i] = NULL;
+  return (numbers);
+}
