@@ -16,7 +16,6 @@ void free_list(t_stack *head)
     while (tmp != NULL)
     {
         nexto = tmp->next;
-        free(tmp->data);
         free(tmp);
         tmp = nexto;
     }
@@ -114,7 +113,7 @@ t_stack *ft_parse(int ac, char **av)
             }
             if (x == 0)
             {
-                *(tmp->data) = number;
+                (tmp->data) = number;
                 x++;
                 j++;
                 continue;
