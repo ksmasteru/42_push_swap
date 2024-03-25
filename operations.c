@@ -104,137 +104,121 @@ void arr_to_stack(int *values, int size,  t_stack **head)
         i++;
     }
 }
-int *args(int ac, int *values)
+void args(int len, t_stack **head)
 {
-    if (ac == 3)
-        return (args_2(ac, values));
-    if (ac == 4)
-        return (args_3(ac, values));
-    if (ac == 5)
-        return (args_4(ac, values));
-    if (ac == 6)
-        return (args_5(ac, values));
-    if (ac > 6)
-        return (args_s(ac, values));
-    return (NULL);
+    if (len == 2)
+        return (args_2(len, head));
+    if (len == 3)
+        return (args_3(len, head));
+    if (len == 4)
+        return (args_4(len, head));
+    if (len == 5)
+        return (args_5(len, head));
+    if (len > 5)
+        return (args_s(len, head));
 }
-int *args_2(int ac, int *values)
+void args_2(int len, t_stack **head)
 {
     int tmp;
 
     tmp = 0;
-    if (values[0] > values[1])
+    if ((*head)->data > (*head)->next->data)
     {
-        tmp = values[0];
-        values[0] = values[1];
-        values[1] = tmp;
+        tmp = (*head)->data;
+        (*head)->data = (*head)->next->data;
+        (*head)->next->data = tmp;
         write (1, "sa", 2);
     }
-    return (values);
 }
-int *args_3(int ac, int *values)
+void args_3(int len, t_stack **head)
 {
-    t_stack *head;
     t_stack *b_head;
 
     b_head = NULL;
-    arr_to_stack(values, ac - 1, &head);
-    if ((head->data) > (head->next->data))
-        sa(&head);
-    if (head->data > head->next->next->data)
-        rra(&head);
-    pb(&head, &b_head);
-    if(head->data > head->next->data)
-        sa(&head);
-    pa(&head, &b_head);
-    print_stack(head);
-    return (values);
+    if (((*head)->data) > ((*head)->next->data))
+        sa(head);
+    if ((*head)->data > (*head)->next->next->data)
+        rra(head);
+    pb(head, &b_head);
+    if((*head)->data > (*head)->next->data)
+        sa(head);
+    pa(head, &b_head);
 }
 
-int *args_4(int ac, int *values)
+void args_4(int len, t_stack **head)
 {
     int tmp;
     int temp = 0;
     int *vals;
 
-    t_stack *head;
     t_stack *b_head = NULL;
     t_stack *tail;
     
-    arr_to_stack(values, ac - 1, &head);
-    tail = head->next->next->next;
+    tail = (*head)->next->next->next;
     printf("tail data is %d\n", tail->data);
 
-
-    if (head->data < head->next->data)
-        sa(&head);
-    if (head->data < tail->data)
-        rra(&head);
-    if (head->data < tail->data)
-        rra(&head);
-    pb(&head, &b_head);
-    if ((head->data) > (head->next->data))
-        sa(&head);
-    if (head->data > head->next->next->data)
-        rra(&head);
-    pb(&head, &b_head);
-    if(head->data > head->next->data)
-        sa(&head);
-    pa(&head, &b_head);
-    pa(&head, &b_head);
-    ra(&head);
-    print_stack(head);
-    return (values);
+    if ((*head)->data < (*head)->next->data)
+        sa(head);
+    if ((*head)->data < tail->data)
+        rra(head);
+    if ((*head)->data < tail->data)
+        rra(head);
+    pb(head, &b_head);
+    if (((*head)->data) > ((*head)->next->data))
+        sa(head);
+    if ((*head)->data > (*head)->next->next->data)
+        rra(head);
+    pb(head, &b_head);
+    if((*head)->data > (*head)->next->data)
+        sa(head);
+    pa(head, &b_head);
+    pa(head, &b_head);
+    ra(head);
 }
-int *args_5(int ac, int *values)
+void args_5(int len, t_stack **head)
 {
-    t_stack *head;
     t_stack *tail;
     t_stack *b_head = NULL;
 
-    arr_to_stack(values, ac - 1, &head);
-    tail = head->next->next->next->next;
+    tail = (*head)->next->next->next->next;
     printf("tail data is %d\n", tail->data);
-    if ((head->data) > (head->next->data))
-        sa(&head);
-    if (head->data > tail->data)
-        rra(&head);
-    if (head->data > tail->data)
-        rra(&head);
-    pb(&head, &b_head);
-    tail = head->next->next->next;
-    if(head->data > head->next->data)
-        sa(&head);
-    if (head->data > tail->data)
-        rra(&head);
-    if(head->data > tail->data)
-        rra(&head);
-    pb(&head, &b_head);
-    if(head->data > head->next->data)
-        sa(&head);
-    if(head->data > head->next->next->data)
-        rra(&head);
-    if (head->data > head->next->next->data)
-        rra(&head);
+    if (((*head)->data) > ((*head)->next->data))
+        sa(head);
+    if ((*head)->data > tail->data)
+        rra(head);
+    if ((*head)->data > tail->data)
+        rra(head);
+    pb(head, &b_head);
+    tail = (*head)->next->next->next;
+    if((*head)->data > (*head)->next->data)
+        sa(head);
+    if ((*head)->data > tail->data)
+        rra(head);
+    if((*head)->data > tail->data)
+        rra(head);
+    pb(head, &b_head);
+    if((*head)->data > (*head)->next->data)
+        sa(head);
+    if((*head)->data > (*head)->next->next->data)
+        rra(head);
+    if ((*head)->data > (*head)->next->next->data)
+        rra(head);
 
     if(b_head->data < b_head->next->data)
         sb(&b_head);
-    pb(&head, &b_head);
+    pb(head, &b_head);
     if (b_head->data < b_head->next->next->data)
         rb(&b_head);
     if (b_head->data < b_head->next->data)
         sb(&b_head);
-    if (head->data > head->next->data)
-        sa(&head);
-    pa(&head, &b_head);
-    pa(&head, &b_head);
-    pa(&head, &b_head);
-    print_stack(head);
-    return (values);
+    if ((*head)->data > (*head)->next->data)
+        sa(head);
+    pa(head, &b_head);
+    pa(head, &b_head);
+    pa(head, &b_head);
 }
-int *args_s(int ac, int *values)
+void args_s(int len, t_stack **head)
 {
-    t_stack *head;
     t_stack *tail;
     t_stack *b_head = NULL;
     int *sorted_array;
@@ -242,27 +226,27 @@ int *args_s(int ac, int *values)
     int i = 0;
     int end_value;
     int end;
-    if (ac - 1 > 5 && ac - 1 <= 20)
+    int *arr;
+    if (len > 5 && len <= 20)
         end = 3;
-    else if (ac - 1 <= 100)
+    else if (len <= 100)
         end = 15;
-    else if (ac - 1 <= 500)
+    else if (len <= 500)
         end = 35;
     else
         end = 45;
     int start = 0;
     index = 0;
     int x = 0;
-    int len = 0;
     int max_value;
-    arr_to_stack(values, ac - 1, &head);
-    sorted_array = sort_array(values, ac - 1);
-    while (head != NULL)
+    arr = stack_to_array((*head), len);
+    sorted_array = sort_array(arr, len);
+    while ((*head) != NULL)
     {
-        if (head->data >= sorted_array[start] && head->data <= sorted_array[end])
+        if ((*head)->data >= sorted_array[start] && (*head)->data <= sorted_array[end])
         {
-            pb(&head, &b_head);
-            if (end < ac - 2)
+            pb(head, &b_head);
+            if (end < len - 1)
             {
                 start++;
                 end++;
@@ -270,10 +254,10 @@ int *args_s(int ac, int *values)
             if ((b_head->next != NULL) && (b_head->data < b_head->next->data))
                 sb(&b_head);
         }
-        else if (head->data < sorted_array[start])
+        else if ((*head)->data < sorted_array[start])
         {
-            pb(&head, &b_head);
-            if (end < ac - 2)
+            pb(head, &b_head);
+            if (end < len - 1)
             {
                 start++;
                 end++;
@@ -283,12 +267,11 @@ int *args_s(int ac, int *values)
                 sb(&b_head);
         }
         else
-            rra(&head);
+            rra(head);
     }
     while (b_head != NULL)
     {
         x = get_max_index(b_head, &max_value);
-        len = stack_len(b_head);
         if (x != 0)
         {
             if (x < len / 2)
@@ -302,8 +285,6 @@ int *args_s(int ac, int *values)
                     rrb(&b_head);
             }
         }
-        pa(&head, &b_head);
+        pa(head, &b_head);
     }
-    print_stack(head);
-    return (NULL);
 }

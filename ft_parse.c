@@ -60,12 +60,13 @@ int check_duplicates(int* values, int size)
     }
     return (0);
 }
-int *ft_parse(int ac, char **av)
+t_stack *ft_parse(int ac, char **av)
 {
     t_stack *a_head;
     t_stack *tmp;
     t_stack *new;
     char **num_str;
+    int *values;
     if (ac < 2)
         ft_error(NULL, 0);
     int i;
@@ -110,9 +111,6 @@ int *ft_parse(int ac, char **av)
         }
         i++;
     }
-    print_stack(a_head);
-    /*if (check_duplicates(values, ac - 1 ) < 0)
-        ft_error(values, 2);*/
-        exit(0);
-    return (0);
+    //print_stack(a_head);
+    return (a_head);
 }

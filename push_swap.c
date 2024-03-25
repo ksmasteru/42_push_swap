@@ -6,20 +6,14 @@ int main(int ac, char **av)
     t_stack *new;
     t_stack *temp;
     t_stack *head;
-    /*int *res;
-    int *arr = ft_parse(ac, av);
-    if (ac == 5)
-        res = args_4(ac, arr);
-    if (ac == 4)
-        res = args_3(ac, arr);
-    if (ac == 3)
-        res = args_2(ac, arr);
-    for (int i = 0 ; i < ac - 1; i++)
-    {
-        printf("%d\n", arr[i]);
-    }
-    free(arr);*/
-    
-    int *arr = ft_parse(ac, av);
-    int *res = args(ac , arr);  
+    int *values;
+
+    head = ft_parse(ac, av);
+    int len = stack_len(head);
+    values = stack_to_array(head, len);
+    if (check_duplicates(values, len) < 0)
+        ft_error(values, 2);
+    free(values);
+    args(len , &head);
+    print_stack(head);
 }

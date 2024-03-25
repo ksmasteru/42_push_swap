@@ -12,6 +12,23 @@ void print_stack(t_stack *head)
   }
 }
 
+int *stack_to_array(t_stack *a_head, int size)
+{
+  int i;
+  int *arr;
+  i = 0;
+  arr = (int *)malloc(sizeof(int) * size);
+  if (!arr)
+    return (NULL);
+  while (i < size)
+  {
+    arr[i++] = a_head->data;
+    printf("----%d-----\n", arr[i - 1]);
+    a_head = a_head->next;
+  }
+  return (arr);
+}
+
 t_stack *ft_lst_new(int data)
 {
   t_stack *new;
