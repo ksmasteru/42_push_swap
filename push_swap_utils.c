@@ -32,22 +32,27 @@ int *stack_to_array(t_stack *a_head, int size)
 t_stack *ft_lst_new(int data)
 {
   t_stack *new;
+  int *s_data;
 
   new = malloc(sizeof(t_stack));
   if (!new)
     return (NULL);
-  new->data = data;
+  s_data = (int *)malloc(sizeof(int));
+  if (s_data)
+    return (NULL);
+  *s_data = data; 
+  new->data = s_data;
   new->next = NULL;
   new->prev = NULL;
   return (new);
 }
 
-t_stack *ft_lstadd_back(t_stack *old)
+t_stack *ft_lstadd_back(t_stack *old, int data)
 {
   t_stack *new;
   t_stack *temp;
 
-  new = ft_lst_new(0);
+  new = ft_lst_new(data);
   if (!new)
     return (NULL);
   old->next = new;

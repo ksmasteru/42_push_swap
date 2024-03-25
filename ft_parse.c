@@ -6,6 +6,21 @@ void print_error(char *str)
 {
     write(2, str, strlen(str));
 }
+
+void free_list(t_stack *head)
+{
+    t_stack *tmp;
+    t_stack *nexto;
+
+    tmp = head;
+    while (tmp != NULL)
+    {
+        nexto = tmp->next;
+        free(tmp->data);
+        free(tmp);
+        tmp = nexto;
+    }
+}
 int ft_error(int *values, int index)
 {
     if (values != NULL)
@@ -86,31 +101,29 @@ t_stack *ft_parse(int ac, char **av)
         if (num_str == NULL)
         {
             write (2, "Error\n", 6);
-            // free the ls.
             exit(1);
         }
         while (num_str[j] != NULL)
         {
             number = ft_atoi(num_str[j]);
-            if (number > 2147483647 || number < -2147483648)
+            if (number > INT_MAX || number < INT_MIN)
             {
+                free_list(a_head);
                 write(1,"Error\n",6);
                 exit(1);
             }
             if (x == 0)
             {
-                tmp->data = number;
+                *(tmp->data) = number;
                 x++;
                 j++;
                 continue;
             }
-            new = ft_lstadd_back(tmp);
-            new->data = number;
+            new = ft_lstadd_back(tmp, number);
             tmp = new;        
             j++;
         }
         i++;
     }
-    //print_stack(a_head);
     return (a_head);
 }

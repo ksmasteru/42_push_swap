@@ -14,9 +14,9 @@ int get_max_index(t_stack *head, int *max_value)
     *max_value = imax;
     while (tmp != NULL)
     {
-        if (tmp->data > imax)
+        if (*(tmp->data) > imax)
         {
-            imax = tmp->data;
+            imax = *(tmp->data);
             *max_value = imax;
             i = j;
         }
@@ -67,11 +67,10 @@ int scan_tail(int val, t_stack *tail)
 
     i = 0;
     index = -1;
-    arr[0] = tail->data;
-    arr[1] = tail->prev->data;
-    arr[2] = tail->prev->prev->data;
-    while (i < 3)
-    {
+    arr[0] = *(tail->data);
+    arr[1] = *(tail->prev->data);
+    arr[2] = *(tail->prev->prev->data);
+   wile (i <3w) {
       if (val > arr[i])
       {
         val = arr[i];

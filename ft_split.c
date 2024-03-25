@@ -51,8 +51,6 @@ char	**ft_split(char *cmd, char sep)
 
 	i = 0;
 	x = 0;
-    if (cmd[0] == '\0')
-        return (NULL);
 	words_count = count_words(cmd, sep);
     if (words_count == 0)
         return (NULL);

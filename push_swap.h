@@ -5,16 +5,17 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <limits.h>
 #define ANSI_COLOR_RED          "\x1b[31m"
 typedef struct s_stack{
-  int data;
+  int *data;
   struct s_stack *next;
   struct s_stack *prev;
 }t_stack;
 
 void print_stack(t_stack *head);
 t_stack *ft_lst_new(int data);
-t_stack *ft_lstadd_back(t_stack *old);
+t_stack *ft_lstadd_back(t_stack *old, int data);
 int *pop_stack(t_stack **head);
 int push_value(int a, t_stack **head);
 void sa(t_stack **stack_a_head);

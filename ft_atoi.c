@@ -1,11 +1,10 @@
 #include "push_swap.h"
-// "   +123" ok
-// " a23" not ok
+
 long ft_atoi(char *str)
 {
     int i;
     int sign;
-    int num;
+    long num;
 
     sign = 1;
     num = 0;
@@ -19,15 +18,16 @@ long ft_atoi(char *str)
         i++;
     }
     if (!str[i])
-        return (8945612684);
+        return (LONG_MAX - 3);
     while (str[i] && str[i] >= '0' && str[i] <= '9')
     {
-         num *= 10;
+         if (((num *= 10) > INT_MAX))
+            return(LONG_MAX - 3);
          num += str[i++] - 48;
          if (str[i] == '\0')
             return (num * sign);
     }
     if (str[i])
-        return (6543654656);
+        return (LONG_MAX - 3);
     return (-1);
 }
