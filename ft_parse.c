@@ -54,7 +54,6 @@ void free_list(t_stack *head, int index)
     if (index == 2)
     {
         write (2, "Error\n", 6);
-        while (1);
         exit(1);
     }
 }

@@ -154,8 +154,6 @@ void args_4(int len, t_stack **head)
     t_stack *tail;
     
     tail = (*head)->next->next->next;
-    printf("tail data is %d\n", tail->data);
-
     if ((*head)->data < (*head)->next->data)
         sa(head);
     if ((*head)->data < tail->data)
@@ -174,35 +172,38 @@ void args_4(int len, t_stack **head)
     pa(head, &b_head);
     ra(head);
 }
+
+void swap_args_5_1(t_stack **head, int len, t_stack **tail, t_stack **b_head)
+{
+    (*tail) = (*head)->next->next->next->next;
+    if (((*head)->data) > ((*head)->next->data))
+        sa(head);
+    if ((*head)->data > (*tail)->data)
+        rra(head);
+    if ((*head)->data > (*tail)->data)
+        rra(head);
+    pb(head, b_head);
+    (*tail) = (*head)->next->next->next;
+    if((*head)->data > (*head)->next->data)
+        sa(head);
+    if ((*head)->data > (*tail)->data)
+        rra(head);
+    if((*head)->data > (*tail)->data)
+        rra(head);
+    pb(head, b_head);
+    if((*head)->data > (*head)->next->data)
+        sa(head);
+}
 void args_5(int len, t_stack **head)
 {
     t_stack *tail;
     t_stack *b_head = NULL;
 
-    tail = (*head)->next->next->next->next;
-    printf("tail data is %d\n", tail->data);
-    if (((*head)->data) > ((*head)->next->data))
-        sa(head);
-    if ((*head)->data > tail->data)
-        rra(head);
-    if ((*head)->data > tail->data)
-        rra(head);
-    pb(head, &b_head);
-    tail = (*head)->next->next->next;
-    if((*head)->data > (*head)->next->data)
-        sa(head);
-    if ((*head)->data > tail->data)
-        rra(head);
-    if((*head)->data > tail->data)
-        rra(head);
-    pb(head, &b_head);
-    if((*head)->data > (*head)->next->data)
-        sa(head);
+    swap_args_5_1(head, len, &tail, &b_head);
     if((*head)->data > (*head)->next->next->data)
         rra(head);
     if ((*head)->data > (*head)->next->next->data)
         rra(head);
-
     if(b_head->data < b_head->next->data)
         sb(&b_head);
     pb(head, &b_head);

@@ -15,7 +15,6 @@ int main(int ac, char **av)
         ft_error(values, 2);
     free(values);
     args(len , &head);
-    print_stack(head);
+    //print_stack(head
     free_list(head, 0);
-    while (1);
 }

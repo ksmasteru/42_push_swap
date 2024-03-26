@@ -23,7 +23,6 @@ int *stack_to_array(t_stack *a_head, int size)
   while (i < size)
   {
     arr[i++] = a_head->data;
-    printf("----%d-----\n", arr[i - 1]);
     a_head = a_head->next;
   }
   return (arr);
