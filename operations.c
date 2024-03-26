@@ -146,10 +146,6 @@ void args_3(int len, t_stack **head)
 
 void args_4(int len, t_stack **head)
 {
-    int tmp;
-    int temp = 0;
-    int *vals;
-
     t_stack *b_head = NULL;
     t_stack *tail;
     
@@ -217,16 +213,10 @@ void args_5(int len, t_stack **head)
     pa(head, &b_head);
     pa(head, &b_head);
 }
-void args_s(int len, t_stack **head)
+int get_end(int len)
 {
-    t_stack *tail;
-    t_stack *b_head = NULL;
-    int *sorted_array;
-    int index;
-    int i = 0;
-    int end_value;
     int end;
-    int *arr;
+
     if (len > 5 && len <= 20)
         end = 3;
     else if (len <= 100)
@@ -235,56 +225,81 @@ void args_s(int len, t_stack **head)
         end = 35;
     else
         end = 45;
-    int start = 0;
-    index = 0;
-    int x = 0;
-    int max_value;
-    arr = stack_to_array((*head), len);
-    sorted_array = sort_array(arr, len);
+    return (end);
+}
+void increment_border(int *len, int *start, int *end)
+{
+    if (*end < *len - 1)
+    {
+        *start = *start + 1;
+        *end = *end + 1;
+    }
+}
+
+
+void empty_stack_a(t_stack **head, t_stack **b_head, int len, int *sorted_array)
+{
+    int start;
+    int end;
+
+    start = 0;
+    end = get_end(len);
     while ((*head) != NULL)
     {
         if ((*head)->data >= sorted_array[start] && (*head)->data <= sorted_array[end])
-        {
-            pb(head, &b_head);
-            if (end < len - 1)
             {
-                start++;
-                end++;
+                pb(head, b_head);
+                increment_border(&len, &start, &end);
+                if (((*b_head)->next != NULL) && ((*b_head)->data < (*b_head)->next->data))
+                    sb(b_head);
             }
-            if ((b_head->next != NULL) && (b_head->data < b_head->next->data))
-                sb(&b_head);
-        }
         else if ((*head)->data < sorted_array[start])
         {
-            pb(head, &b_head);
-            if (end < len - 1)
-            {
-                start++;
-                end++;
-            }
-            rb(&b_head);
-            if ((b_head->next != NULL) && (b_head->data < b_head->next->data))
-                sb(&b_head);
+            pb(head, b_head);
+            increment_border(&len, &start, &end);
+            rb(b_head);
+            if (((*b_head)->next != NULL) && ((*b_head)->data < (*b_head)->next->data))
+                sb(b_head);
         }
         else
             rra(head);
     }
-    while (b_head != NULL)
+}
+void empty_stack_b(t_stack **head, t_stack **b_head, int len)
+{
+    int max_value;
+    int x;
+
+    x = 0;
+    max_value = 0;
+    while ((*b_head) != NULL)
     {
-        x = get_max_index(b_head, &max_value);
+        x = get_max_index(*b_head, &max_value);
         if (x != 0)
         {
             if (x < len / 2)
             {
-                while (b_head->data != max_value)
-                    rb(&b_head);
+                while ((*b_head)->data != max_value)
+                    rb(b_head);
             }
             else
             {
-                while (b_head->data != max_value)
-                    rrb(&b_head);
+                while ((*b_head)->data != max_value)
+                    rrb(b_head);
             }
         }
-        pa(head, &b_head);
+        pa(head, b_head);
     }
+}
+void args_s(int len, t_stack **head)
+{
+    t_stack *b_head = NULL;
+    int *sorted_array;
+    int *arr;
+    int max_value;
+
+    arr = stack_to_array((*head), len);
+    sorted_array = sort_array(arr, len);
+    empty_stack_a(head, &b_head, len, sorted_array);
+    empty_stack_b(head, &b_head, len);
 }

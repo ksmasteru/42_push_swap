@@ -52,4 +52,8 @@ int   *stack_to_array(t_stack *a_head, int size);
 void  free_list(t_stack *a_head, int index);
 void free_2d_str(char **str);
 void swap_args_5_1(t_stack **head, int len, t_stack **tail, t_stack **b_head);
+void empty_stack_a(t_stack **head, t_stack **b_head, int len, int *sorted_array);
+void empty_stack_b(t_stack **head, t_stack **b_head, int len);
+int get_end(int len);
+void increment_border(int *len, int *start, int *end);
 #endif
