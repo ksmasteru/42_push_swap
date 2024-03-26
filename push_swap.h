@@ -56,4 +56,5 @@ void empty_stack_a(t_stack **head, t_stack **b_head, int len, int *sorted_array)
 void empty_stack_b(t_stack **head, t_stack **b_head, int len);
 int get_end(int len);
 void increment_border(int *len, int *start, int *end);
+int is_sorted(int *values, int len);
 #endif
