@@ -1,13 +1,45 @@
 #include "push_swap.h"
 
-// no duplicates
-// only numbers
 void print_error(char *str)
 {
     write(2, str, strlen(str));
 }
+void free_2d_str(char **str)
+{
+    int i;
 
-void free_list(t_stack *head)
+    i = 0;
+    while (str[i])
+        free(str[i++]);
+    free (str);
+}
+int    link_numbers(char **num_str, int x, t_stack **tmp)
+{
+    long number;
+    int j;
+    t_stack *new;
+
+    j = 0;
+    number = 0;
+    while (num_str[j] != NULL)
+    {
+        number = ft_atoi(num_str[j]);
+        if (number > INT_MAX || number < INT_MIN)
+            return(-1);
+        if (x == 0)
+        {
+            ((*tmp)->data) = number;
+            x++;
+            j++;
+            continue;
+        }
+        new = ft_lstadd_back(*tmp, number);
+        *tmp = new;        
+        j++;
+    }
+    return (0);
+}
+void free_list(t_stack *head, int index)
 {
     t_stack *tmp;
     t_stack *nexto;
@@ -18,6 +50,12 @@ void free_list(t_stack *head)
         nexto = tmp->next;
         free(tmp);
         tmp = nexto;
+    }
+    if (index == 2)
+    {
+        write (2, "Error\n", 6);
+        while (1);
+        exit(1);
     }
 }
 int ft_error(int *values, int index)
@@ -30,7 +68,7 @@ int ft_error(int *values, int index)
         print_error(ANSI_COLOR_RED"Error\n");
     if (index == 2)
         print_error(ANSI_COLOR_RED"Error\n");
-    exit (1);
+    exit(1);
 }
 int check_erros(char *str)
 {
@@ -78,50 +116,25 @@ t_stack *ft_parse(int ac, char **av)
 {
     t_stack *a_head;
     t_stack *tmp;
-    t_stack *new;
     char **num_str;
-    int *values;
-    if (ac < 2)
-        ft_error(NULL, 0);
     int i;
-    long number;
-    int j;
+    int x;
 
-    int x = 0;
-    j = 0;
-    number = 0;
+    x = 0;
     i = 0;
     a_head = ft_lst_new(0);
     tmp = a_head;
     while (i < ac - 1)
     {
-        j = 0;
         num_str = ft_split(av[i + 1], 32);
         if (num_str == NULL)
+            free_list(a_head, 2);
+        if (link_numbers(num_str, x++, &tmp) < 0) /*here for x*/
         {
-            write (2, "Error\n", 6);
-            exit(1);
-        }
-        while (num_str[j] != NULL)
-        {
-            number = ft_atoi(num_str[j]);
-            if (number > INT_MAX || number < INT_MIN)
-            {
-                free_list(a_head);
-                write(1,"Error\n",6);
-                exit(1);
-            }
-            if (x == 0)
-            {
-                (tmp->data) = number;
-                x++;
-                j++;
-                continue;
-            }
-            new = ft_lstadd_back(tmp, number);
-            tmp = new;        
-            j++;
-        }
+            free_2d_str(num_str);
+            free_list(a_head, 2);
+        }   
+        free_2d_str(num_str);
         i++;
     }
     return (a_head);

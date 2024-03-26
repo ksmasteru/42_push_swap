@@ -49,4 +49,6 @@ char	**ft_split(char *cmd, char sep);
 char	*make_words(char *str, char sep);
 int	count_words(char *cmd, char sep);
 int   *stack_to_array(t_stack *a_head, int size);
+void  free_list(t_stack *a_head, int index);
+void free_2d_str(char **str);
 #endif
