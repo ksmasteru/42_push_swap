@@ -12,7 +12,7 @@ typedef struct s_stack{
   struct s_stack *next;
   struct s_stack *prev;
 }t_stack;
-
+int ft_strlen(char *s1);
 void print_stack(t_stack *head);
 t_stack *ft_lst_new(int data);
 t_stack *ft_lstadd_back(t_stack *old, int data);
@@ -57,4 +57,6 @@ void empty_stack_b(t_stack **head, t_stack **b_head, int len);
 int get_end(int len);
 void increment_border(int *len, int *start, int *end);
 int is_sorted(int *values, int len);
+char *ft_strjoin(char *s1, char *s2);
+char *get_instruction();
 #endif
