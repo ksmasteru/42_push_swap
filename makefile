@@ -12,7 +12,7 @@ $(BONUS) : $(M_OBJ_FILES_BONUS)
 %.o : %.c
 	cc -c $< -o $@
 clean:
-	rm -rf $(M_OBJ_FILES)
+	rm -rf $(M_OBJ_FILES) $(M_OBJ_FILES_BONUS)
 fclean : clean
 	rm -rf $(NAME) $(BONUS)
 re: fclean all

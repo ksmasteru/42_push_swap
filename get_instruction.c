@@ -31,24 +31,26 @@ char *get_instruction()
         line = get_next_line(0);
         if (line == NULL || is_valid_arg(line) < 0) /* test if arg is valiid*/
         {
-            write (2, "Error\n", 6);
+            if (line == NULL)
+                break;
+            write (2, "Error invalid arg\n", 18);
             if (buffer != NULL)
                 free(buffer);
             return (NULL);
         }
-        if (strncmp(line, "end", 3) == 0)
+        /*if (strncmp(line, "end", 3) == 0)
         {
             free(line);
             break;
-        }
+        }*/
         holder = ft_strjoin(buffer, line);
-        printf("holdr is %p\n", holder);
+        //printf("holdr is %p\n", holder);
         if (buffer != NULL)
             free(buffer);
         buffer = NULL;
-        printf("line is %p\n", line);
+        //printf("line is %p\n", line);
         free(line);
-        printf("buffer is %p\n", buffer);
+        //printf("buffer is %p\n", buffer);
         buffer = ft_strdup(holder); // really beware this next time
         free(holder);
     }
