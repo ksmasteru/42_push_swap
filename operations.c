@@ -135,13 +135,13 @@ void args_3(int len, t_stack **head)
 
     b_head = NULL;
     if (((*head)->data) > ((*head)->next->data))
-        sa(head);
+        sa(head, 1);
     if ((*head)->data > (*head)->next->next->data)
-        rra(head);
-    pb(head, &b_head);
+        rra(head, 1);
+    pb(head, &b_head, 1);
     if((*head)->data > (*head)->next->data)
-        sa(head);
-    pa(head, &b_head);
+        sa(head, 1);
+    pa(head, &b_head, 1);
 }
 
 void args_4(int len, t_stack **head)
@@ -151,44 +151,44 @@ void args_4(int len, t_stack **head)
     
     tail = (*head)->next->next->next;
     if ((*head)->data < (*head)->next->data)
-        sa(head);
+        sa(head, 1);
     if ((*head)->data < tail->data)
-        rra(head);
+        rra(head, 1);
     if ((*head)->data < tail->data)
-        rra(head);
-    pb(head, &b_head);
+        rra(head, 1);
+    pb(head, &b_head, 1);
     if (((*head)->data) > ((*head)->next->data))
-        sa(head);
+        sa(head, 1);
     if ((*head)->data > (*head)->next->next->data)
-        rra(head);
-    pb(head, &b_head);
+        rra(head, 1);
+    pb(head, &b_head, 1);
     if((*head)->data > (*head)->next->data)
-        sa(head);
-    pa(head, &b_head);
-    pa(head, &b_head);
-    ra(head);
+        sa(head, 1);
+    pa(head, &b_head, 1);
+    pa(head, &b_head, 1);
+    ra(head, 1);
 }
 
 void swap_args_5_1(t_stack **head, int len, t_stack **tail, t_stack **b_head)
 {
     (*tail) = (*head)->next->next->next->next;
     if (((*head)->data) > ((*head)->next->data))
-        sa(head);
+        sa(head, 1);
     if ((*head)->data > (*tail)->data)
-        rra(head);
+        rra(head, 1);
     if ((*head)->data > (*tail)->data)
-        rra(head);
-    pb(head, b_head);
+        rra(head, 1);
+    pb(head, b_head, 1);
     (*tail) = (*head)->next->next->next;
     if((*head)->data > (*head)->next->data)
-        sa(head);
+        sa(head, 1);
     if ((*head)->data > (*tail)->data)
-        rra(head);
+        rra(head, 1);
     if((*head)->data > (*tail)->data)
-        rra(head);
-    pb(head, b_head);
+        rra(head, 1);
+    pb(head, b_head, 1);
     if((*head)->data > (*head)->next->data)
-        sa(head);
+        sa(head, 1);
 }
 void args_5(int len, t_stack **head)
 {
@@ -197,21 +197,21 @@ void args_5(int len, t_stack **head)
 
     swap_args_5_1(head, len, &tail, &b_head);
     if((*head)->data > (*head)->next->next->data)
-        rra(head);
+        rra(head, 1);
     if ((*head)->data > (*head)->next->next->data)
-        rra(head);
+        rra(head, 1);
     if(b_head->data < b_head->next->data)
-        sb(&b_head);
-    pb(head, &b_head);
+        sb(&b_head, 1);
+    pb(head, &b_head, 1);
     if (b_head->data < b_head->next->next->data)
-        rb(&b_head);
+        rb(&b_head, 1);
     if (b_head->data < b_head->next->data)
-        sb(&b_head);
+        sb(&b_head, 1);
     if ((*head)->data > (*head)->next->data)
-        sa(head);
-    pa(head, &b_head);
-    pa(head, &b_head);
-    pa(head, &b_head);
+        sa(head, 1);
+    pa(head, &b_head, 1);
+    pa(head, &b_head, 1);
+    pa(head, &b_head, 1);
 }
 int get_end(int len)
 {
@@ -248,21 +248,21 @@ void empty_stack_a(t_stack **head, t_stack **b_head, int len, int *sorted_array)
     {
         if ((*head)->data >= sorted_array[start] && (*head)->data <= sorted_array[end])
             {
-                pb(head, b_head);
+                pb(head, b_head, 1);
                 increment_border(&len, &start, &end);
                 if (((*b_head)->next != NULL) && ((*b_head)->data < (*b_head)->next->data))
-                    sb(b_head);
+                    sb(b_head, 1);
             }
         else if ((*head)->data < sorted_array[start])
         {
-            pb(head, b_head);
+            pb(head, b_head, 1);
             increment_border(&len, &start, &end);
-            rb(b_head);
+            rb(b_head, 1);
             if (((*b_head)->next != NULL) && ((*b_head)->data < (*b_head)->next->data))
-                sb(b_head);
+                sb(b_head, 1);
         }
         else
-            rra(head);
+            rra(head, 1);
     }
 }
 void empty_stack_b(t_stack **head, t_stack **b_head, int len)
@@ -280,15 +280,15 @@ void empty_stack_b(t_stack **head, t_stack **b_head, int len)
             if (x < len / 2)
             {
                 while ((*b_head)->data != max_value)
-                    rb(b_head);
+                    rb(b_head, 1);
             }
             else
             {
                 while ((*b_head)->data != max_value)
-                    rrb(b_head);
+                    rrb(b_head, 1);
             }
         }
-        pa(head, b_head);
+        pa(head, b_head, 1);
     }
 }
 void args_s(int len, t_stack **head)

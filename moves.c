@@ -1,6 +1,6 @@
 #include "push_swap.h"
 
-int sa(t_stack **stack_a_head)
+int sa(t_stack **stack_a_head, int is_checker)
 {
 
   t_stack *tmp;
@@ -15,11 +15,12 @@ int sa(t_stack **stack_a_head)
   tmp->next = *stack_a_head;
   (*stack_a_head)->next = tmp_next;
   *stack_a_head = tmp;
-  write(1, "sa\n", 3);
+  if (is_checker != 0)
+    write(1, "sa\n", 3);
   return (0);
 }
 
-int sb(t_stack **stack_b_head)
+int sb(t_stack **stack_b_head, int is_checker)
 {
 
   t_stack *tmp;
@@ -34,19 +35,21 @@ int sb(t_stack **stack_b_head)
   tmp->next = *stack_b_head;
   (*stack_b_head)->next = tmp_next;
   *stack_b_head = tmp;
-  write (1, "sb\n", 3);
+  if (is_checker != 0)
+    write (1, "sb\n", 3);
   return (0);
 }
-int ss(t_stack **stack_a_head, t_stack **stack_b_head)
+int ss(t_stack **stack_a_head, t_stack **stack_b_head, int is_checker)
 {
-  if (sb(stack_b_head) < 0)
+  if (sb(stack_b_head, 0) < 0)
     return (-1);
-  if (sa(stack_a_head) < 0)
+  if (sa(stack_a_head, 0) < 0)
     return (-1);
-  write(1, "ss\n", 3);
+  if (is_checker != 0)
+    write(1, "ss\n", 3);
   return (0);
 }
-int pa(t_stack **stack_a_head, t_stack **stack_b_head)
+int pa(t_stack **stack_a_head, t_stack **stack_b_head, int is_checker)
 {
 
   t_stack *b_next;
@@ -60,10 +63,11 @@ int pa(t_stack **stack_a_head, t_stack **stack_b_head)
   (*stack_b_head) = b_next;
   b_tmp->next = (*stack_a_head);
   (*stack_a_head) = b_tmp;
-  write(1, "pa\n", 3);
+  if (is_checker != 0)
+    write(1, "pa\n", 3);
   return (0);
 }
-int pb(t_stack **stack_a_head, t_stack **stack_b_head)
+int pb(t_stack **stack_a_head, t_stack **stack_b_head, int is_checker)
 {
   t_stack *a_next;
   t_stack *a_tmp;
@@ -75,12 +79,13 @@ int pb(t_stack **stack_a_head, t_stack **stack_b_head)
   (*stack_a_head) = a_next;
   a_tmp->next = (*stack_b_head);
   (*stack_b_head) = a_tmp;
-  write(1, "pb\n", 3);
+  if (is_checker != 0)
+    write(1, "pb\n", 3);
   return (0);
 }
-int ra(t_stack **stack_a_head)
+int ra(t_stack **stack_a_head, int is_checker)
 {
-  /*what if there is one node*/
+
   t_stack *tmp;
   t_stack *temp;
   
@@ -93,11 +98,12 @@ int ra(t_stack **stack_a_head)
   (*stack_a_head)->next = NULL;
   tmp->next = *stack_a_head;
   *stack_a_head = temp;
-  write(1, "ra\n", 3);
+  if (is_checker != 0)
+    write(1, "ra\n", 3);
   return (0);
 }
 
-int rb(t_stack **stack_b_head)
+int rb(t_stack **stack_b_head, int is_checker)
 {
   t_stack *tmp;
   t_stack *temp;
@@ -111,22 +117,24 @@ int rb(t_stack **stack_b_head)
   (*stack_b_head)->next = NULL;
   tmp->next = *stack_b_head;
   *stack_b_head = temp;
-  write(1, "rb\n", 3);
+  if (is_checker != 0)
+    write(1, "rb\n", 3);
   return (0);
 }
 
-int rr(t_stack **stack_a_head, t_stack **stack_b_head)
+int rr(t_stack **stack_a_head, t_stack **stack_b_head, int is_checker)
 {
-  if (ra(stack_a_head) < 0)
+  if (ra(stack_a_head, 0) < 0)
     return (-1);
-  if (rb(stack_b_head) < 0)
+  if (rb(stack_b_head, 0) < 0)
     return (-1);
-  write(1,"rr\n", 3);
+  if (is_checker != 0)
+    write(1,"rr\n", 3);
   return (0);
 }
 
 
-int rra(t_stack **stack_a_head)
+int rra(t_stack **stack_a_head, int is_checker)
 {
   /* what if there is one element*/
   t_stack *tmp;
@@ -143,11 +151,12 @@ int rra(t_stack **stack_a_head)
   old_head = (*stack_a_head);
   *stack_a_head = temp;
   (*stack_a_head)->next = old_head;
-  write(1, "rra\n", 4);
+  if (is_checker != 0)
+    write(1, "rra\n", 4);
   return (0);
 }
 
-int rrb(t_stack **stack_b_head)
+int rrb(t_stack **stack_b_head, int is_checker)
 {
   t_stack *tmp;
   t_stack *temp;
@@ -163,16 +172,18 @@ int rrb(t_stack **stack_b_head)
   old_head = (*stack_b_head);
   *stack_b_head = temp;
   (*stack_b_head)->next = old_head;
-  write(1, "rrb\n", 4);
+  if (is_checker != 0)
+    write(1, "rrb\n", 4);
   return (0);
 }
 
-int rrr(t_stack **stack_a_head, t_stack **stack_b_head)
+int rrr(t_stack **stack_a_head, t_stack **stack_b_head, int is_checker)
 {
-  if (rra(stack_a_head) < 0)
+  if (rra(stack_a_head, 0) < 0)
     return (-1);
-  if (rrb(stack_b_head) < 0)
+  if (rrb(stack_b_head, 0) < 0)
     return (-1);
-  write(1, "rrr\n", 4);
+  if (is_checker != 0)
+    write(1, "rrr\n", 4);
   return (0);
 }

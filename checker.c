@@ -20,35 +20,35 @@ void check_sorted_stack(t_stack *head, int len)
   if (arr == NULL)
     return ;
   if (is_sorted(arr, len) < 0)
-    write (1, "ko", 2);
+    write (1, "KO", 2);
   else
-    write (1, "ok", 2);
+    write (1, "OK", 2);
   free(arr);
 }
 int apply_instruction(t_stack **head, t_stack **b_head, char *instruction)
 {
   if (strcmp(instruction, "pa") == 0)
-    return (pa(head, b_head));
+    return (pa(head, b_head, 0));
   if (strcmp(instruction, "pb") == 0)
-    return (pb(head, b_head));
+    return (pb(head, b_head, 0));
   if (strcmp(instruction, "sa") == 0)
-    return (sa(head));
+    return (sa(head, 0));
   if (strcmp(instruction, "sb") == 0)
-    return (sb(b_head));
+    return (sb(b_head, 0));
   if (strcmp(instruction, "ss") == 0)
-    return (ss(head, b_head));
+    return (ss(head, b_head, 0));
   if (strcmp(instruction, "ra") == 0)
-    return (ra(head));
+    return (ra(head, 0));
   if (strcmp(instruction, "rr") == 0)
-    return (rr(head, b_head));
+    return (rr(head, b_head, 0));
   if (strcmp(instruction, "rb") == 0)
-    return (rb(b_head));
+    return (rb(b_head, 0));
   if (strcmp(instruction, "rra") == 0)
-    return (rra(head));
+    return (rra(head, 0));
   if (strcmp(instruction, "rrb") == 0)
-    return (rrb(b_head));
+    return (rrb(b_head, 0));
   if (strcmp(instruction, "rrr") == 0)
-    return (rrr(head, b_head));
+    return (rrr(head, b_head, 0));
   return (0);
 }
 void apply_instructions(t_stack **head, int len, char *buffer, int *values)
