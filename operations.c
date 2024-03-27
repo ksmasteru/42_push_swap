@@ -1,5 +1,31 @@
 #include "push_swap.h"
 
+
+int get_min_index(t_stack *head, int *min_value)
+{
+    int imin;
+    t_stack *tmp;
+    int i;
+    int j;
+
+    j = 0;
+    i = 0;
+    tmp = head;
+    imin = head->data;
+    *min_value = imin;
+    while (tmp != NULL)
+    {
+        if ((tmp->data) < imin)
+        {
+            imin = (tmp->data);
+            *min_value = imin;
+            i = j;
+        }
+        tmp = tmp->next;
+        j++;
+    }
+    return (i);
+}
 int get_max_index(t_stack *head, int *max_value)
 {
     int imax;
@@ -108,11 +134,11 @@ void args(int len, t_stack **head)
     if (len == 2)
         return (args_2(len, head));
     if (len == 3)
-        return (args_3(len, head));
+        return (args_3_new(len, head));
     if (len == 4)
-        return (args_4(len, head));
+        return (args_4_new(len, head));
     if (len == 5)
-        return (args_5(len, head));
+        return (args_5_new(len, head));
     if (len > 5)
         return (args_s(len, head));
 }
@@ -144,6 +170,31 @@ void args_3(int len, t_stack **head)
     pa(head, &b_head, 1);
 }
 
+void args_3_new(int len, t_stack **head)
+{
+    int max_value_index;
+    int max_value;
+
+    max_value_index = get_max_index(*head, &max_value);
+    if (max_value_index == 0)
+    {
+        ra(head, 1);
+        if ((*head)->data > (*head)->next->data)
+            sa(head, 1);
+    }
+    else if (max_value_index == 1)
+    {
+        rra(head, 1);
+        if ((*head)->data > (*head)->next->data)
+            sa(head, 1);
+    }
+    else
+    {
+        if ((*head)->data > (*head)->next->data)
+            sa(head, 1);
+    }
+}
+
 void args_4(int len, t_stack **head)
 {
     t_stack *b_head = NULL;
@@ -159,7 +210,7 @@ void args_4(int len, t_stack **head)
     pb(head, &b_head, 1);
     if (((*head)->data) > ((*head)->next->data))
         sa(head, 1);
-    if ((*head)->data > (*head)->next->next->data)
+    if ((*head)->data > (*head)->next->next->data) 
         rra(head, 1);
     pb(head, &b_head, 1);
     if((*head)->data > (*head)->next->data)
@@ -167,6 +218,30 @@ void args_4(int len, t_stack **head)
     pa(head, &b_head, 1);
     pa(head, &b_head, 1);
     ra(head, 1);
+}
+
+void args_4_new(int len, t_stack **head)
+{
+    t_stack *b_head;
+    
+    b_head = NULL;
+    int min_value;
+    int min_value_index;
+
+    min_value_index = get_min_index(*head, &min_value);
+    if (min_value_index < (len / 2))
+    {
+        while ((*head)->data != min_value)
+            rra(head, 1);
+    }
+    else
+    {
+        while ((*head)->data != min_value)
+            ra(head, 1);
+    }
+    pb(head, &b_head, 1);
+    args_3_new(3, head);/* is len 2 or 3 ?*/
+    pa(head, &b_head, 1);
 }
 
 void swap_args_5_1(t_stack **head, int len, t_stack **tail, t_stack **b_head)
@@ -211,6 +286,30 @@ void args_5(int len, t_stack **head)
         sa(head, 1);
     pa(head, &b_head, 1);
     pa(head, &b_head, 1);
+    pa(head, &b_head, 1);
+}
+/*better algo for 5 ints*/
+void args_5_new(int len, t_stack **head)
+{
+    int min_value;
+    int min_value_index;
+    int i;
+    t_stack *b_head;
+
+    b_head = NULL;
+    min_value_index = get_min_index(*head , &min_value);
+    if (min_value_index < (len / 2))
+    {
+        while ((*head)->data != min_value)
+            ra(head, 1);
+    }
+    else
+    {
+        while ((*head)->data != min_value)
+            rra(head, 1);
+    }
+    pb(head, &b_head, 1);
+    args_4_new(len - 1, head);
     pa(head, &b_head, 1);
 }
 int get_end(int len)

@@ -17,7 +17,6 @@ int is_valid_arg(char *str)
     }
     return (-1);
 }
-/* test args validity */
 char *get_instruction()
 {
     char *line;
@@ -29,7 +28,7 @@ char *get_instruction()
     while (1)
     {
         line = get_next_line(0);
-        if (line == NULL || is_valid_arg(line) < 0) /* test if arg is valiid*/
+        if (line == NULL || is_valid_arg(line) < 0)
         {
             if (line == NULL)
                 break;
@@ -38,20 +37,12 @@ char *get_instruction()
                 free(buffer);
             return (NULL);
         }
-        /*if (strncmp(line, "end", 3) == 0)
-        {
-            free(line);
-            break;
-        }*/
         holder = ft_strjoin(buffer, line);
-        //printf("holdr is %p\n", holder);
         if (buffer != NULL)
             free(buffer);
         buffer = NULL;
-        //printf("line is %p\n", line);
         free(line);
-        //printf("buffer is %p\n", buffer);
-        buffer = ft_strdup(holder); // really beware this next time
+        buffer = ft_strdup(holder);
         free(holder);
     }
     return buffer;
