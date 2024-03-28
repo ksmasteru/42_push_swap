@@ -9,12 +9,13 @@ int sa(t_stack **stack_a_head, int is_checker)
   if (*stack_a_head == NULL)
     return (-1);
   tmp = (*stack_a_head)->next;
-  if (tmp == NULL)
-    return (-1);
-  tmp_next = tmp->next;
-  tmp->next = *stack_a_head;
-  (*stack_a_head)->next = tmp_next;
-  *stack_a_head = tmp;
+  if (tmp != NULL)
+  {
+    tmp_next = tmp->next;
+    tmp->next = *stack_a_head;
+    (*stack_a_head)->next = tmp_next;
+    *stack_a_head = tmp;
+  }
   if (is_checker != 0)
     write(1, "sa\n", 3);
   return (0);
@@ -29,12 +30,13 @@ int sb(t_stack **stack_b_head, int is_checker)
   if (*stack_b_head == NULL)
     return (-1);
   tmp = (*stack_b_head)->next;
-  if (tmp == NULL)
-    return (-1);
-  tmp_next = tmp->next;
-  tmp->next = *stack_b_head;
-  (*stack_b_head)->next = tmp_next;
-  *stack_b_head = tmp;
+  if (tmp != NULL)
+  {
+    tmp_next = tmp->next;
+    tmp->next = *stack_b_head;
+    (*stack_b_head)->next = tmp_next;
+    *stack_b_head = tmp;
+  }
   if (is_checker != 0)
     write (1, "sb\n", 3);
   return (0);
@@ -51,7 +53,7 @@ int ss(t_stack **stack_a_head, t_stack **stack_b_head, int is_checker)
 }
 int pa(t_stack **stack_a_head, t_stack **stack_b_head, int is_checker)
 {
-
+  /*weirdo*/
   t_stack *b_next;
   t_stack *b_tmp;
   t_stack *a_tmp;
