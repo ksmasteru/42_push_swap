@@ -321,7 +321,7 @@ int get_end(int len)
     else if (len <= 100)
         end = 15;
     else if (len <= 500)
-        end = 35;
+        end = 25;
     else
         end = 45;
     return (end);
@@ -340,7 +340,9 @@ void empty_stack_a(t_stack **head, t_stack **b_head, int len, int *sorted_array)
 {
     int start;
     int end;
+    int min_value;
 
+    min_value = 0;
     start = 0;
     end = get_end(len);
     while ((*head) != NULL)
@@ -356,12 +358,12 @@ void empty_stack_a(t_stack **head, t_stack **b_head, int len, int *sorted_array)
         {
             pb(head, b_head, 1);
             increment_border(&len, &start, &end);
-            rb(b_head, 1);
+                rb(b_head, 1); 
             if (((*b_head)->next != NULL) && ((*b_head)->data < (*b_head)->next->data))
                 sb(b_head, 1);
         }
         else
-            rra(head, 1);
+            ra(head, 1);
     }
 }
 void empty_stack_b(t_stack **head, t_stack **b_head, int len)
@@ -388,6 +390,7 @@ void empty_stack_b(t_stack **head, t_stack **b_head, int len)
             }
         }
         pa(head, b_head, 1);
+        len--;
     }
 }
 void args_s(int len, t_stack **head)

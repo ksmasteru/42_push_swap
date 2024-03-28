@@ -32,7 +32,7 @@ char *get_instruction()
         {
             if (line == NULL)
                 break;
-            write (2, "Error invalid arg\n", 18);
+            write (2, "Error\n", 6);
             if (buffer != NULL)
                 free(buffer);
             return (NULL);

@@ -111,6 +111,12 @@ int rb(t_stack **stack_b_head, int is_checker)
   if (*stack_b_head == NULL)
     return (-1);
   temp = (*stack_b_head)->next;
+  if (temp == NULL)
+  {
+    if (is_checker != 0)
+      write(1, "rb\n", 3);
+    return (0);
+  }
   tmp = *stack_b_head;
   while (tmp->next != NULL)
     tmp = tmp->next;
@@ -136,7 +142,6 @@ int rr(t_stack **stack_a_head, t_stack **stack_b_head, int is_checker)
 
 int rra(t_stack **stack_a_head, int is_checker)
 {
-  /* what if there is one element*/
   t_stack *tmp;
   t_stack *temp;
   t_stack *old_head;
