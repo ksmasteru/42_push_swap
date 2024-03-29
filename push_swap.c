@@ -21,6 +21,5 @@ int main(int ac, char **av)
     temp = head;
     free(values);
     args(len , &head);
-
     free_list(head, 0);
 }

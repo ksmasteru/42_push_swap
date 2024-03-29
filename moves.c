@@ -2,104 +2,128 @@
 
 int sa(t_stack **stack_a_head, int is_checker)
 {
-
+  t_stack *holder;
   t_stack *tmp;
   t_stack *tmp_next;
 
-  if (*stack_a_head == NULL)
-    return (-1);
-  tmp = (*stack_a_head)->next;
-  if (tmp != NULL)
+  if (*stack_a_head == NULL || (*stack_a_head)->next == NULL)
   {
-    tmp_next = tmp->next;
-    tmp->next = *stack_a_head;
-    (*stack_a_head)->next = tmp_next;
-    *stack_a_head = tmp;
+    if (is_checker != 0)
+      write(1, "sa\n", 3);
   }
+  tmp = *stack_a_head;
+  tmp_next = tmp->next->next;
+  holder = tmp->next;
+  holder->next = tmp;
+  tmp->next = tmp_next;
+  *stack_a_head = holder;
   if (is_checker != 0)
-    write(1, "sa\n", 3);
+    write (1, "sa\n", 3);
   return (0);
 }
 
 int sb(t_stack **stack_b_head, int is_checker)
 {
 
+  t_stack *holder;
   t_stack *tmp;
   t_stack *tmp_next;
 
-  if (*stack_b_head == NULL)
-    return (-1);
-  tmp = (*stack_b_head)->next;
-  if (tmp != NULL)
+  if (*stack_b_head == NULL || (*stack_b_head)->next == NULL)
   {
-    tmp_next = tmp->next;
-    tmp->next = *stack_b_head;
-    (*stack_b_head)->next = tmp_next;
-    *stack_b_head = tmp;
+    if (is_checker != 0)
+      write(1, "sb\n", 3);
+    return (0);
   }
+  tmp = *stack_b_head;
+  tmp_next = tmp->next->next;
+  holder = tmp->next;
+  holder->next = tmp;
+  tmp->next = tmp_next;
+  *stack_b_head = holder;
   if (is_checker != 0)
     write (1, "sb\n", 3);
   return (0);
 }
 int ss(t_stack **stack_a_head, t_stack **stack_b_head, int is_checker)
 {
-  if (sb(stack_b_head, 0) < 0)
-    return (-1);
-  if (sa(stack_a_head, 0) < 0)
-    return (-1);
+  sb(stack_b_head, 0);
+  sa(stack_a_head, 0);
   if (is_checker != 0)
     write(1, "ss\n", 3);
   return (0);
 }
+
 int pa(t_stack **stack_a_head, t_stack **stack_b_head, int is_checker)
 {
-  /*weirdo*/
+  /*didnt test if a is empty*/
   t_stack *b_next;
-  t_stack *b_tmp;
   t_stack *a_tmp;
+  t_stack *b_tmp;
 
   if ((*stack_b_head) == NULL)
-    return (-1);
+  {
+    if (is_checker != 0)
+      write(1, "pa\n", 3);
+    return (0);
+  }
+  a_tmp = *stack_a_head;
+  b_tmp = *stack_b_head;
   b_next = (*stack_b_head)->next;
-  b_tmp = (*stack_b_head);
-  (*stack_b_head) = b_next;
-  b_tmp->next = (*stack_a_head);
-  (*stack_a_head) = b_tmp;
+  *stack_b_head = b_next;
+  b_tmp->next = a_tmp;
+  *stack_a_head = b_tmp;
   if (is_checker != 0)
     write(1, "pa\n", 3);
   return (0);
 }
+
 int pb(t_stack **stack_a_head, t_stack **stack_b_head, int is_checker)
 {
   t_stack *a_next;
   t_stack *a_tmp;
+  t_stack *b_tmp;
 
-  if (*stack_a_head == NULL)
-    return (-1);
-  a_next = (*stack_a_head)->next;
+  if ((*stack_a_head) == NULL)
+  {
+    if (is_checker != 0)
+      write(1, "pb\n", 3);
+    return (0);
+  }
+  b_tmp = (*stack_b_head);
   a_tmp = (*stack_a_head);
-  (*stack_a_head) = a_next;
-  a_tmp->next = (*stack_b_head);
-  (*stack_b_head) = a_tmp;
+  a_next = (*stack_a_head)->next;
+  *stack_a_head = a_next;
+  a_tmp->next =  b_tmp;
+  *stack_b_head = a_tmp;
   if (is_checker != 0)
     write(1, "pb\n", 3);
   return (0);
 }
 int ra(t_stack **stack_a_head, int is_checker)
 {
-
-  t_stack *tmp;
-  t_stack *temp;
+  t_stack *a_tmp;
+  t_stack *a_next;
+  t_stack *tail;
   
   if (*stack_a_head == NULL)
-    return (-1);
-  temp = (*stack_a_head)->next;
-  tmp = *stack_a_head;
-  while (tmp->next != NULL)
-    tmp = tmp->next;
-  (*stack_a_head)->next = NULL;
-  tmp->next = *stack_a_head;
-  *stack_a_head = temp;
+  {
+    if (is_checker != 0)
+      write (1, "ra\n", 3);
+    return (0);
+  }
+  a_tmp = (*stack_a_head);
+  a_next = (*stack_a_head)->next;
+  if (a_next == NULL)
+  {
+    if (is_checker != 0)
+      write (1, "ra\n", 3);
+    return (0);
+  }
+  tail = get_tail(*stack_a_head);
+  tail->next = a_tmp;
+  a_tmp->next = NULL;
+  *stack_a_head = a_next;
   if (is_checker != 0)
     write(1, "ra\n", 3);
   return (0);
@@ -107,24 +131,28 @@ int ra(t_stack **stack_a_head, int is_checker)
 
 int rb(t_stack **stack_b_head, int is_checker)
 {
-  t_stack *tmp;
-  t_stack *temp;
+  t_stack *b_tmp;
+  t_stack *b_next;
+  t_stack *tail;
   
   if (*stack_b_head == NULL)
-    return (-1);
-  temp = (*stack_b_head)->next;
-  if (temp == NULL)
   {
     if (is_checker != 0)
-      write(1, "rb\n", 3);
+      write (1, "rb\n", 3);
     return (0);
   }
-  tmp = *stack_b_head;
-  while (tmp->next != NULL)
-    tmp = tmp->next;
-  (*stack_b_head)->next = NULL;
-  tmp->next = *stack_b_head;
-  *stack_b_head = temp;
+  b_tmp = (*stack_b_head);
+  b_next = (*stack_b_head)->next;
+  if (b_next == NULL)
+  {
+    if (is_checker != 0)
+      write (1, "rb\n", 3);
+    return (0);
+  }
+  tail = get_tail(*stack_b_head);
+  tail->next = b_tmp;
+  b_tmp->next = NULL;
+  *stack_b_head = b_next;
   if (is_checker != 0)
     write(1, "rb\n", 3);
   return (0);
@@ -132,10 +160,8 @@ int rb(t_stack **stack_b_head, int is_checker)
 
 int rr(t_stack **stack_a_head, t_stack **stack_b_head, int is_checker)
 {
-  if (ra(stack_a_head, 0) < 0)
-    return (-1);
-  if (rb(stack_b_head, 0) < 0)
-    return (-1);
+  ra(stack_a_head, 0);
+  rb(stack_b_head, 0);
   if (is_checker != 0)
     write(1,"rr\n", 3);
   return (0);
@@ -144,20 +170,30 @@ int rr(t_stack **stack_a_head, t_stack **stack_b_head, int is_checker)
 
 int rra(t_stack **stack_a_head, int is_checker)
 {
-  t_stack *tmp;
-  t_stack *temp;
-  t_stack *old_head;
+  t_stack *tail;
+  t_stack *prev_tail;
   
   if (*stack_a_head == NULL)
-    return (-1);
-  tmp = *(stack_a_head);
-  while (tmp->next->next != NULL)
-    tmp = tmp->next;
-  temp = tmp->next;
-  tmp->next = NULL;
-  old_head = (*stack_a_head);
-  *stack_a_head = temp;
-  (*stack_a_head)->next = old_head;
+  {
+    if (is_checker != 0)
+      write (1, "rra\n", 4);
+    return (0);
+  }
+  if ((*stack_a_head)->next == NULL)
+  {
+   if (is_checker != 0)
+      write (1, "rra\n", 4);
+    return (0);
+  }
+  tail = *stack_a_head;
+  while (tail->next != NULL)
+  {
+    prev_tail = tail;
+    tail = tail->next;
+  }
+  prev_tail->next = NULL;
+  tail->next = *stack_a_head;
+  *stack_a_head = tail;
   if (is_checker != 0)
     write(1, "rra\n", 4);
   return (0);
@@ -165,20 +201,30 @@ int rra(t_stack **stack_a_head, int is_checker)
 
 int rrb(t_stack **stack_b_head, int is_checker)
 {
-  t_stack *tmp;
-  t_stack *temp;
-  t_stack *old_head;
+  t_stack *tail;
+  t_stack *prev_tail;
   
   if (*stack_b_head == NULL)
-    return (-1);
-  tmp = *(stack_b_head);
-  while (tmp->next->next != NULL)
-    tmp = tmp->next;
-  temp = tmp->next;
-  tmp->next = NULL;
-  old_head = (*stack_b_head);
-  *stack_b_head = temp;
-  (*stack_b_head)->next = old_head;
+  {
+    if (is_checker != 0)
+      write (1, "rrb\n", 4);
+    return (0);
+  }
+  if ((*stack_b_head)->next == NULL)
+  {
+   if (is_checker != 0)
+      write (1, "rrb\n", 4);
+    return (0);
+  }
+  tail = *stack_b_head;
+  while (tail->next != NULL)
+  {
+    prev_tail = tail;
+    tail = tail->next;
+  }
+  prev_tail->next = NULL;
+  tail->next = *stack_b_head;
+  *stack_b_head = tail;
   if (is_checker != 0)
     write(1, "rrb\n", 4);
   return (0);
@@ -186,10 +232,8 @@ int rrb(t_stack **stack_b_head, int is_checker)
 
 int rrr(t_stack **stack_a_head, t_stack **stack_b_head, int is_checker)
 {
-  if (rra(stack_a_head, 0) < 0)
-    return (-1);
-  if (rrb(stack_b_head, 0) < 0)
-    return (-1);
+  rra(stack_a_head, 0);
+  rrb(stack_b_head, 0);
   if (is_checker != 0)
     write(1, "rrr\n", 4);
   return (0);

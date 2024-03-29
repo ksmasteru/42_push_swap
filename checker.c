@@ -18,22 +18,16 @@ void check_sorted_stack(t_stack *head, int len)
 
   arr = stack_to_array(head, len);
    // return ;
-  //if (is_sorted(arr, len) < 0)
-  t_stack *tmp;
-  tmp = head;
-  printf("----head data is %d\n", head->data);
-  while (tmp != NULL)
-  {
-    printf("%d\n", tmp->data);
-    tmp = tmp->next;
-  }
+  if (is_sorted(arr, len) < 0)
+    write (1, "KO", 2);
+  else
+    write(1, "OK", 2);
   /*for (i = 0; i < len; i++)
     printf("%d\n", arr[i]);*/
    //write (1, "KO", 2);
   //else
     //write (1, "OK", 2);
   //free(arr);
-  i = 0;
   return ;
 }
 int apply_instruction(t_stack **head, t_stack **b_head, char *line)
