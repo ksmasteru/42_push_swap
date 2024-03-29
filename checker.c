@@ -17,37 +17,48 @@ void check_sorted_stack(t_stack *head, int len)
   int i;
 
   arr = stack_to_array(head, len);
-  if (arr == NULL)
-    return ;
-  if (is_sorted(arr, len) < 0)
-    write (1, "KO", 2);
-  else
-    write (1, "OK", 2);
-  free(arr);
+   // return ;
+  //if (is_sorted(arr, len) < 0)
+  t_stack *tmp;
+  tmp = head;
+  printf("----head data is %d\n", head->data);
+  while (tmp != NULL)
+  {
+    printf("%d\n", tmp->data);
+    tmp = tmp->next;
+  }
+  /*for (i = 0; i < len; i++)
+    printf("%d\n", arr[i]);*/
+   //write (1, "KO", 2);
+  //else
+    //write (1, "OK", 2);
+  //free(arr);
+  i = 0;
+  return ;
 }
-int apply_instruction(t_stack **head, t_stack **b_head, char *instruction)
+int apply_instruction(t_stack **head, t_stack **b_head, char *line)
 {
-  if (strcmp(instruction, "pa") == 0)
+  if (strncmp(line, "pa", strlen(line) - 1) == 0)
     return (pa(head, b_head, 1));
-  if (strcmp(instruction, "pb") == 0)
-    return (pb(head, b_head, 1));
-  if (strcmp(instruction, "sa") == 0)
+  if (strncmp(line, "pb", strlen(line) - 1) == 0)
+    return (pb(head, b_head, strlen(line) - 1));
+  if (strncmp(line, "sa", strlen(line) - 1) == 0)
     return (sa(head, 1));
-  if (strcmp(instruction, "sb") == 0)
+  if (strncmp(line, "sb", strlen(line) - 1) == 0)
     return (sb(b_head, 1));
-  if (strcmp(instruction, "ss") == 0)
-    return (ss(head, b_head, 1));
-  if (strcmp(instruction, "ra") == 0)
+  if (strncmp(line, "ss", strlen(line) - 1) == 0)
+    return (ss(head, b_head, strlen(line) - 1));
+  if (strncmp(line, "ra", strlen(line) - 1) == 0)
     return (ra(head, 1));
-  if (strcmp(instruction, "rr") == 0)
+  if (strncmp(line, "rr", strlen(line) - 1) == 0)
     return (rr(head, b_head, 1));
-  if (strcmp(instruction, "rb") == 0)
+  if (strncmp(line, "rb", strlen(line) - 1) == 0)
     return (rb(b_head, 1));
-  if (strcmp(instruction, "rra") == 0)
+  if (strncmp(line, "rra", strlen(line) - 1) == 0)
     return (rra(head, 1));
-  if (strcmp(instruction, "rrb") == 0)
+  if (strncmp(line, "rrb", strlen(line) - 1) == 0)
     return (rrb(b_head, 1));
-  if (strcmp(instruction, "rrr") == 0)
+  if (strncmp(line, "rrr", strlen(line) - 1) == 0)
     return (rrr(head, b_head, 1));
   return (0);
 }
@@ -57,6 +68,7 @@ void apply_instructions(t_stack **head, int len, char *buffer, int *values)
   int i;
   char **instructions;
   t_stack *b_head;
+  char c;
 
   b_head = NULL;
   i = 0;
@@ -93,10 +105,9 @@ int ft_strncmp(char *s1, char *s2, int len)
 int main(int ac, char **av)
 {
   char *buffer;
-  char *holder;
-  char *line;
   t_stack *head;
   int *values;
+  t_stack *b_head;
 
   head = ft_parse(ac, av);
   int len = stack_len(head);
@@ -108,11 +119,9 @@ int main(int ac, char **av)
       free(values);
       return (0);
   }
-  buffer = get_instruction();
-  if (buffer == NULL)
-    return (0);
-  apply_instructions(&head, len, buffer, values);
+  buffer = get_instruction(&head, &b_head);
+  //apply_instructions(&head, len, buffer, values);
   check_sorted_stack(head, len);
-  free_list(head, 0);
+  //free_list(head, 0);
   return (0);  
 }

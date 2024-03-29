@@ -18,7 +18,9 @@ int main(int ac, char **av)
         free(values);
         return (0);
     }
+    temp = head;
     free(values);
     args(len , &head);
+
     free_list(head, 0);
 }

@@ -61,8 +61,9 @@ void increment_border(int *len, int *start, int *end);
 int is_sorted(int *values, int len);
 char *ft_strjoin(char *s1, char *s2);
 void args_3_new(int len, t_stack **head);
-char *get_instruction();
+char *get_instruction(t_stack **head, t_stack **b_head);
 void args_4_new(int len, t_stack **head);
 int get_min_index(t_stack *head, int *min_value);
 void args_5_new(int len, t_stack **head);
+int apply_instruction(t_stack **head, t_stack **b_head, char *line);
 #endif

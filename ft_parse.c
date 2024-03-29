@@ -13,7 +13,7 @@ void free_2d_str(char **str)
         free(str[i++]);
     free (str);
 }
-int    link_numbers(char **num_str, int x, t_stack **tmp)
+int    link_numbers(char **num_str, int x, t_stack **tmp, t_stack **head)
 {
     long number;
     int j;
@@ -21,6 +21,7 @@ int    link_numbers(char **num_str, int x, t_stack **tmp)
 
     j = 0;
     number = 0;
+    //*head = *tmp;
     while (num_str[j] != NULL)
     {
         number = ft_atoi(num_str[j]);
@@ -28,7 +29,8 @@ int    link_numbers(char **num_str, int x, t_stack **tmp)
             return(-1);
         if (x == 0)
         {
-            ((*tmp)->data) = number;
+            *tmp = ft_lst_new(number);
+            *head = *tmp;
             x++;
             j++;
             continue;
@@ -121,18 +123,18 @@ t_stack *ft_parse(int ac, char **av)
 
     x = 0;
     i = 0;
-    a_head = ft_lst_new(0);
+    a_head = NULL;
     tmp = a_head;
     while (i < ac - 1)
     {
         num_str = ft_split(av[i + 1], 32);
         if (num_str == NULL)
             free_list(a_head, 2);
-        if (link_numbers(num_str, x++, &tmp) < 0) /*here for x*/
+        if (link_numbers(num_str, x++, &tmp, &a_head) < 0) /*here for x*/
         {
             free_2d_str(num_str);
             free_list(a_head, 2);
-        }   
+        }
         free_2d_str(num_str);
         i++;
     }
