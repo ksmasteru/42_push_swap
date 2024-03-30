@@ -17,43 +17,26 @@ int is_valid_arg(char *str)
     }
     return (-1);
 }
-char *get_instruction(t_stack **head, t_stack **b_head)
+int get_instruction(t_stack **head, t_stack **b_head)
 {
     char *line;
-    char *buffer;
-    char *holder;
-    int i = 0;
-    buffer = NULL;
-    holder = NULL;
-    /*apply each instruction time by time*/
+    int i;
+
+    i = 0;
     while (1)
     {
         line = get_next_line(0);
         if (line == NULL || is_valid_arg(line) < 0)
         {
             if (line == NULL)
-            {
-                //printf("line is null\n");
                 break;
-            }
             write (2, "Error\n", 6);
-            if (buffer != NULL)
-                free(buffer);
-            return (NULL);
+            return (-1);
         }
-        if (apply_instruction(head, b_head, line) < 0)
-        {
-            printf("instrcution error at index %d and ins is %s", i, line);
-            exit(1);
-        }
-        /*holder = ft_strjoin(buffer, line);
-        if (buffer != NULL)
-            free(buffer);
-        buffer = NULL;
+        apply_instruction(head, b_head, line);
         free(line);
-        buffer = ft_strdup(holder);
-        free(holder);
-        i++;*/
     }
-    return buffer;
+    if (*b_head != NULL)
+        checker_error_handle(head, b_head);
+    return (0);
 }

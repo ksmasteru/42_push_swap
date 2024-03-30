@@ -4,15 +4,7 @@ void print_error(char *str)
 {
     write(2, str, strlen(str));
 }
-void free_2d_str(char **str)
-{
-    int i;
 
-    i = 0;
-    while (str[i])
-        free(str[i++]);
-    free (str);
-}
 int    link_numbers(char **num_str, int x, t_stack **tmp, t_stack **head)
 {
     long number;
@@ -21,7 +13,6 @@ int    link_numbers(char **num_str, int x, t_stack **tmp, t_stack **head)
 
     j = 0;
     number = 0;
-    //*head = *tmp;
     while (num_str[j] != NULL)
     {
         number = ft_atoi(num_str[j]);
@@ -41,30 +32,17 @@ int    link_numbers(char **num_str, int x, t_stack **tmp, t_stack **head)
     }
     return (0);
 }
-void free_list(t_stack *head, int index)
+int ft_error(int *values, t_stack *head, int index)
 {
     t_stack *tmp;
-    t_stack *nexto;
 
-    tmp = head;
-    while (tmp != NULL)
-    {
-        nexto = tmp->next;
-        free(tmp);
-        tmp = nexto;
-    }
-    if (index == 2)
-    {
-        write (2, "Error\n", 6);
-        exit(1);
-    }
-}
-int ft_error(int *values, int index)
-{
     if (values != NULL)
         free(values);
-    if (index == 0)
-        print_error(ANSI_COLOR_RED"Error\n");
+    while (tmp != NULL)
+    {
+        free(tmp);
+        tmp = tmp->next;
+    }
     if (index == 1)
         print_error(ANSI_COLOR_RED"Error\n");
     if (index == 2)
@@ -101,6 +79,8 @@ int check_duplicates(int* values, int size)
 
     j = 0;
     i = 0;
+    if (values == NULL)
+        return(-1);
     while (i < size - 1)
     {
         j = i + 1;

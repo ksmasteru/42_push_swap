@@ -1,6 +1,5 @@
 #include "push_swap.h"
 
-
 int get_min_index(t_stack *head, int *min_value)
 {
     int imin;
@@ -17,6 +16,7 @@ int get_min_index(t_stack *head, int *min_value)
     {
         if ((tmp->data) < imin)
         {
+            
             imin = (tmp->data);
             *min_value = imin;
             i = j;
@@ -50,62 +50,6 @@ int get_max_index(t_stack *head, int *max_value)
         j++;
     }
     return (i);
-}
-t_stack *get_tail(t_stack *head)
-{
-    t_stack *tmp;
-    
-    tmp = head;
-    while (tmp->next != NULL)
-        tmp = tmp->next;
-    return (tmp);
-}
-
-int *sort_array(int *array, int size)
-{
-    int i = 0;
-    int j = 0;
-    int temp = 0;
-    while (i < size - 1)
-    {
-        j = i + 1;
-        while (j < size)
-        {
-            if (array[i] > array[j])
-            {
-                temp = array[i];
-                array[i] = array[j];
-                array[j] = temp;
-            }
-            j++;
-        }
-        i++;
-    }
-    return (array);
-}
-int scan_tail(int val, t_stack *tail)
-{
-
-    int arr[3];
-    int smallest;
-    int index;
-    int i;
-
-    i = 0;
-    index = -1;
-    arr[0] = (tail->data);
-    arr[1] = (tail->prev->data);
-    arr[2] = (tail->prev->prev->data);
-   while (i <3) 
-   {
-      if (val > arr[i])
-      {
-        val = arr[i];
-        index = i;
-      }
-      i++;
-    }
-    return (index);
 }
 void arr_to_stack(int *values, int size,  t_stack **head)
 {

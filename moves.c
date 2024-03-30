@@ -94,7 +94,8 @@ int pb(t_stack **stack_a_head, t_stack **stack_b_head, int is_checker)
   a_tmp = (*stack_a_head);
   a_next = (*stack_a_head)->next;
   *stack_a_head = a_next;
-  a_tmp->next =  b_tmp;
+  if (a_tmp != NULL)
+    a_tmp->next =  b_tmp;
   *stack_b_head = a_tmp;
   if (is_checker != 0)
     write(1, "pb\n", 3);
