@@ -8,6 +8,8 @@ int main(int ac, char **av)
     t_stack *head;
     int *values;
 
+    if (ac < 3)
+        return (0);
     head = ft_parse(ac, av);
     int len = stack_len(head);
     values = stack_to_array(head, len);
@@ -18,4 +20,5 @@ int main(int ac, char **av)
     free(values);
     args(len , &head);
     free_list(head, 0);
+    return (0);
 }

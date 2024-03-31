@@ -22,7 +22,6 @@ int get_end(int len)
         end = 45;
     return (end);
 }
-/* need this ?*/
 int rrr(t_stack **stack_a_head, t_stack **stack_b_head, int is_checker)
 {
   rra(stack_a_head, 0);
@@ -84,6 +83,7 @@ int get_min_index(t_stack *head, int *min_value)
     }
     return (i);
 }
+
 
 
 

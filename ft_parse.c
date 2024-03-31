@@ -32,45 +32,6 @@ int    link_numbers(char **num_str, int x, t_stack **tmp, t_stack **head)
     }
     return (0);
 }
-int ft_error(int *values, t_stack *head, int index)
-{
-    t_stack *tmp;
-
-    if (values != NULL)
-        free(values);
-    while (tmp != NULL)
-    {
-        free(tmp);
-        tmp = tmp->next;
-    }
-    if (index == 1)
-        print_error(ANSI_COLOR_RED"Error\n");
-    if (index == 2)
-        print_error(ANSI_COLOR_RED"Error\n");
-    exit(1);
-}
-int check_erros(char *str)
-{
-    int i;
-    i = 0;
-    while (str[i] == 32 || (str[i] >= 9 && str[i] <= 13))
-        i++;
-    if (str[i] == '-' || str[i] == '+')
-        i++;
-    while ((str[i] && str[i] >= '0' && str[i] <= '9') || ((str[i] == 32 || (str[i] >= 9 && str[i] <= 13)) || str[i] == '+' || str[i] == '-'))
-    {
-        if (str[i] == '-' || str[i] == '+')
-        {
-            if (!(str[i + 1] <= '9' && str[i + 1] >= '0'))
-                return (-1);
-        }
-        i++;
-    }
-    if (str[i] == '\0')
-        return (0);
-    else
-        return (-1);  
-}
 
 int check_duplicates(int* values, int size)
 {
@@ -120,3 +81,35 @@ t_stack *ft_parse(int ac, char **av)
     }
     return (a_head);
 }
+long ft_atoi(char *str)
+{
+    int i;
+    int sign;
+    long num;
+
+    sign = 1;
+    num = 0;
+    i = 0;
+    while (str[i] == 32 || (str[i] >= 9 && str[i] <= 13))
+        i++;
+    if (str[i] == '+' || str[i] == '-')
+    {
+        if (str[i] == '-')
+            sign *= -1;
+        i++;
+    }
+    if (!str[i])
+        return (LONG_MAX - 3);
+    while (str[i] && str[i] >= '0' && str[i] <= '9')
+    {
+         if (((num *= 10) > INT_MAX))
+            return(LONG_MAX - 3);
+         num += str[i++] - 48;
+         if (str[i] == '\0')
+            return (num * sign);
+    }
+    if (str[i])
+        return (LONG_MAX - 3);
+    return (-1);
+}
+

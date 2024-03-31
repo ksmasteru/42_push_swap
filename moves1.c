@@ -56,7 +56,6 @@ int ss(t_stack **stack_a_head, t_stack **stack_b_head, int is_checker)
 
 int pa(t_stack **stack_a_head, t_stack **stack_b_head, int is_checker)
 {
-  /*didnt test if a is empty*/
   t_stack *b_next;
   t_stack *a_tmp;
   t_stack *b_tmp;

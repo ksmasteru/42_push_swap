@@ -40,9 +40,9 @@ int check_sorted_stack(t_stack *head, int is_checker)
     tmp = tmp->next;
   }
   if (is_sorted ==  -1 && is_checker != 0)
-    write (1, "KO", 2);
+    write (1, "KO\n", 3);
   else if (is_sorted == 0 && is_checker != 0)
-    write(1, "OK", 2);
+    write(1, "OK\n", 3);
   return (is_sorted);
 }
 t_stack *get_tail(t_stack *head)
