@@ -37,9 +37,9 @@ CFLAGS = -Wall -Werror -Wextra
 %.o : %.c
 	$(cc) $(CFLAGS) -c $< -o $@
 $(NAME): $(OBJ)
-	$(cc) -o $(NAME) $(OBJ)
+	$(cc) $(CFLAGS) -o $(NAME) $(OBJ)
 $(NAME_B): $(OBJS_B)
-	$(cc) -o $(NAME_B) $(OBJS_B)
+	$(cc) $(CFLAGS) -o $(NAME_B) $(OBJS_B)
 all : $(NAME)
 
 bonus : $(NAME_B)
