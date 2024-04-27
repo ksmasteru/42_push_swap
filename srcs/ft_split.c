@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_split.c                                         :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: hes-saqu <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/04/27 20:12:48 by hes-saqu          #+#    #+#             */
+/*   Updated: 2024/04/27 20:12:54 by hes-saqu         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <unistd.h>
@@ -51,9 +63,9 @@ char	**ft_split(char *cmd, char sep)
 
 	i = 0;
 	x = 0;
+	if (count_words(cmd, sep) == 0)
+		return (NULL);
 	words_count = count_words(cmd, sep);
-    if (words_count == 0)
-        return (NULL);
 	args = (char **)malloc(sizeof(char *) * (words_count + 1));
 	if (!args)
 		return (NULL);

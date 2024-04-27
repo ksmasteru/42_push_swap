@@ -113,8 +113,6 @@ void	make_str_final(t_node **head, t_node *nachste, char *str, int j)
 char	*make_str(t_node **head)
 {
 	t_node	*nachste;
-	int		i;
-	int		j;
 	int		len;
 	char	*str;
 
@@ -122,8 +120,6 @@ char	*make_str(t_node **head)
 	if (*head == NULL)
 		return (NULL);
 	len = str_len(*head);
-	i = 0;
-	j = 0;
 	str = (char *)malloc(sizeof(char) * (len + 1));
 	if (!str)
 		return (NULL);
