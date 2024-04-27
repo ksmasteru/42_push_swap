@@ -1,4 +1,4 @@
-#include "push_swap.h"
+#include "../includes/push_swap.h"
 
 int ra(t_stack **stack_a_head, int is_checker)
 {

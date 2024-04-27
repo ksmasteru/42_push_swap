@@ -1,4 +1,4 @@
-#include "push_swap.h"
+#include "../includes/push_swap.h"
 #include <time.h>
 
 int main(int ac, char **av)

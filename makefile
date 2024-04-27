@@ -1,21 +1,76 @@
+BLU = \033[0;34m
+GRN = \033[0;32m
+RED = \033[0;31m
+RST = \033[0m
+END = \e[0m
 
-M_SRC_FILES = ft_parse.c push_swap_utils1.c free_fs.c ft_split.c is_sorted.c moves.c moves1.c operations.c operations1.c push_swap_utils.c push_swap.c
-M_OBJ_FILES = $(M_SRC_FILES:.c=.o)
-M_SRC_FILES_BONUS = checker.c get_next_line.c push_swap_utils1.c free_fs.c get_next_line_utils.c moves1.c ft_strjoin.c moves.c ft_parse.c ft_split.c is_sorted.c operations.c operations1.c push_swap_utils.c
-M_OBJ_FILES_BONUS = $(M_SRC_FILES_BONUS:.c=.o)
+SRCS = srcs/ft_parse.c \
+	srcs/push_swap_utils1.c \
+	srcs/free_fs.c \
+	srcs/ft_split.c \
+	srcs/is_sorted.c \
+	srcs/moves.c \
+	srcs/moves1.c \
+	srcs/operations.c \
+	srcs/operations1.c \
+	srcs/push_swap_utils.c \
+	srcs/push_swap.c
+
+SRCS_BONUS = srcs_bonus/checker.c \
+	      srcs_bonus/get_next_line.c \
+	      srcs_bonus/push_swap_utils1.c \
+	      srcs_bonus/free_fs.c \
+	      srcs_bonus/get_next_line_utils.c \
+	      srcs_bonus/moves1.c \
+	      srcs_bonus/ft_strjoin.c \
+	      srcs_bonus/moves.c \
+	      srcs_bonus/ft_parse.c \
+	      srcs_bonus/ft_split.c \
+	      srcs_bonus/is_sorted.c \
+	      srcs_bonus/operations.c \
+	      srcs_bonus/operations1.c \
+	      srcs_bonus/push_swap_utils.c
+
 NAME = push_swap
+NAME_B = checker
+OBJS_DIR = objs/
+OBJS_DIR_B = objs_b/
+OBJ = $(SRCS:.c=.o)
+OBJS_B = $(SRCS_BONUS:.c=.o)
+OBJECTS_PREFIXED = $(addprefix $(OBJS_DIR), $(OBJS))
+OBJECTS_PREFIXED_B = $(addprefix $(OBJS_DIR_B), $(OBJS_B))
+cc = gcc
 CFLAGS = 
-BONUS = checker
+
+$(OBJS_DIR)%.o : %.c includes/push_swap.h
+	mkdir -p $(OBJS_DIR)
+	mkdir -p $(OBJS_DIR)srcs
+	$(CC) $(CFLAGS) -c $< -o $@
+$(OBJS_DIR_B)%.o : %.c includes/push_swap.h
+	mkdir -p $(OBJS_DIR_B)
+	mkdir -p $(OBJS_DIR_B)srcs
+	$(CC) $(CFLAGS) -c $< -o $@
+
+$(NAME): $(OBJECTS_PREFIXED)
+	$(CC) -g -o $(NAME) $(OBJECTS_PREFIXED)
+$(NAME_B): $(OBJECTS_PREFIXED_B)
+	$(CC) -o $(NAME_B) $(OBJECTS_PREFIXED_B)
+
+
 all : $(NAME)
-bonus : $(BONUS)
-$(NAME) : $(M_OBJ_FILES)
-	cc $(CFLAGS) $(M_OBJ_FILES) -o push_swap
-$(BONUS) : $(M_OBJ_FILES_BONUS)
-	cc $(CFLAGS) $(M_OBJ_FILES_BONUS) -o checker
-%.o : %.c
-	cc $(CFLAGS) -c $< -o $@
+
+bonus : $(NAME_B)
+
 clean:
-	rm -rf $(M_OBJ_FILES) $(M_OBJ_FILES_BONUS)
+	@rm -f $(OBJ_DIR)
+	@rm -f $(OBJ_DIR_B)
+	@echo "{GRN}[CLEAN]${RST} done"
+
 fclean : clean
-	rm -rf $(NAME) $(BONUS)
+	@rm -f $(NAME)
+	@rm -f $(NAME_B)
+	@echo "{GRN}[CLEAN]${RST}done"
+
 re: fclean all
+
+.PHONY: all clean fclean re

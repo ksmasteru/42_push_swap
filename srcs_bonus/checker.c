@@ -1,5 +1,5 @@
-#include "push_swap.h"
-#include "get_next_line.h"
+#include "../includes/push_swap.h"
+#include "../includes/get_next_line.h"
 
 int is_valid_arg(char *str)
 {
