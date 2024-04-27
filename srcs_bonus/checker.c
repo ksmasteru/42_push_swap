@@ -106,8 +106,6 @@ int	main(int ac, char **av)
 	if (ac < 3)
 		return (0);
 	head = ft_parse(ac, av);
-	if (check_sorted_stack(head, 0) == 0)
-		return (0);
 	len = stack_len(head);
 	values = stack_to_array(head, len);
 	if (check_duplicates(values, len) < 0)
