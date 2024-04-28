@@ -37,7 +37,7 @@ void	args_2(int len, t_stack **head)
 		tmp = (*head)->data;
 		(*head)->data = (*head)->next->data;
 		(*head)->next->data = tmp;
-		write(1, "sa", 2);
+		write(1, "sa\n", 3);
 	}
 }
 
