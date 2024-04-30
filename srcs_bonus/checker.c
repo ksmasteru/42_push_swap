@@ -70,27 +70,27 @@ int	get_instruction(t_stack **head, t_stack **b_head)
 
 int	apply_instruction(t_stack **head, t_stack **b_head, char *line)
 {
-	if (strncmp(line, "pa", ft_strlen(line) - 1) == 0)
+	if (ft_strncmp(line, "pa", ft_strlen(line) - 1) == 0)
 		return (pa(head, b_head, 0));
-	if (strncmp(line, "pb", ft_strlen(line) - 1) == 0)
+	if (ft_strncmp(line, "pb", ft_strlen(line) - 1) == 0)
 		return (pb(head, b_head, 0));
-	if (strncmp(line, "sa", ft_strlen(line) - 1) == 0)
+	if (ft_strncmp(line, "sa", ft_strlen(line) - 1) == 0)
 		return (sa(head, 0));
-	if (strncmp(line, "sb", ft_strlen(line) - 1) == 0)
+	if (ft_strncmp(line, "sb", ft_strlen(line) - 1) == 0)
 		return (sb(b_head, 0));
-	if (strncmp(line, "ss", ft_strlen(line) - 1) == 0)
+	if (ft_strncmp(line, "ss", ft_strlen(line) - 1) == 0)
 		return (ss(head, b_head, 0));
-	if (strncmp(line, "ra", ft_strlen(line) - 1) == 0)
+	if (ft_strncmp(line, "ra", ft_strlen(line) - 1) == 0)
 		return (ra(head, 0));
-	if (strncmp(line, "rr", ft_strlen(line) - 1) == 0)
+	if (ft_strncmp(line, "rr", ft_strlen(line) - 1) == 0)
 		return (rr(head, b_head, 0));
-	if (strncmp(line, "rb", ft_strlen(line) - 1) == 0)
+	if (ft_strncmp(line, "rb", ft_strlen(line) - 1) == 0)
 		return (rb(b_head, 0));
-	if (strncmp(line, "rra", ft_strlen(line) - 1) == 0)
+	if (ft_strncmp(line, "rra", ft_strlen(line) - 1) == 0)
 		return (rra(head, 0));
-	if (strncmp(line, "rrb", ft_strlen(line) - 1) == 0)
+	if (ft_strncmp(line, "rrb", ft_strlen(line) - 1) == 0)
 		return (rrb(b_head, 0));
-	if (strncmp(line, "rrr", ft_strlen(line) - 1) == 0)
+	if (ft_strncmp(line, "rrr", ft_strlen(line) - 1) == 0)
 		return (rrr(head, b_head, 0));
 	return (0);
 }
@@ -103,7 +103,7 @@ int	main(int ac, char **av)
 	int		len;
 
 	b_head = NULL;
-	if (ac < 3)
+	if (ac < 2)
 		return (0);
 	head = ft_parse(ac, av);
 	len = stack_len(head);

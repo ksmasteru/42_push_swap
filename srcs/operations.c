@@ -15,9 +15,9 @@
 void	args(int len, t_stack **head)
 {
 	if (len == 2)
-		return (args_2(len, head));
+		return (args_2(head));
 	if (len == 3)
-		return (args_3_new(len, head));
+		return (args_3_new(head));
 	if (len == 4)
 		return (args_4_new(len, head));
 	if (len == 5)
@@ -26,11 +26,10 @@ void	args(int len, t_stack **head)
 		return (args_s(len, head));
 }
 
-void	args_2(int len, t_stack **head)
+void	args_2(t_stack **head)
 {
 	int	tmp;
 
-	len++;
 	tmp = 0;
 	if ((*head)->data > (*head)->next->data)
 	{
@@ -41,12 +40,11 @@ void	args_2(int len, t_stack **head)
 	}
 }
 
-void	args_3_new(int len, t_stack **head)
+void	args_3_new(t_stack **head)
 {
 	int	max_value_index;
 	int	max_value;
 
-	len++;
 	max_value_index = get_max_index(*head, &max_value);
 	if (max_value_index == 0)
 	{
@@ -86,7 +84,7 @@ void	args_4_new(int len, t_stack **head)
 			ra(head, 1);
 	}
 	pb(head, &b_head, 1);
-	args_3_new(3, head);
+	args_3_new(head);
 	pa(head, &b_head, 1);
 }
 

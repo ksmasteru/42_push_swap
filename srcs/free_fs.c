@@ -63,9 +63,7 @@ int	ft_error(int *values, t_stack *head, int index)
 		free(tmp);
 		tmp = nexto;
 	}
-	if (index == 1)
-		write(2, ANSI_COLOR_RED"Error\n", 6);
-	if (index == 2)
-		write(2, ANSI_COLOR_RED"Error\n", 6);
+	if (index == 1 || index == 2)
+		write(2, "Error\n", 6);
 	exit(1);
 }

@@ -31,7 +31,7 @@ OBJS_DIR = objs/
 OBJS_DIR_B = objs_b/
 OBJ = $(SRCS:.c=.o)
 OBJS_B = $(SRCS_BONUS:.c=.o)
-cc = gcc
+cc = cc
 CFLAGS = -Wall -Werror -Wextra
 
 %.o : %.c

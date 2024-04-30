@@ -19,7 +19,7 @@ int	main(int ac, char **av)
 	int		*values;
 	int		len;
 
-	if (ac < 3)
+	if (ac < 2)
 		return (0);
 	head = ft_parse(ac, av);
 	len = stack_len(head);
