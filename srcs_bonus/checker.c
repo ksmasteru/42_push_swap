@@ -25,7 +25,7 @@ int	is_valid_arg(char *str)
 		return (-1);
 	while (i < 11)
 	{
-		if (strncmp(str, args[i], ft_strlen(args[i])) == 0)
+		if (ft_strncmp(str, args[i], ft_strlen(args[i])) == 0)
 			return (0);
 		i++;
 	}

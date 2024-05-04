@@ -38,6 +38,7 @@ void	free_2d_str(char **str)
 	i = 0;
 	while (str[i])
 		free(str[i++]);
+	free(str[i]);
 	free(str);
 }
 
