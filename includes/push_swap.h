@@ -79,6 +79,7 @@ int					get_end(int len);
 void				increment_border(int *len, int *start, int *end);
 int					is_sorted(int *values, int len);
 char				*ft_strjoin(char *s1, char *s2);
+int					ft_strncmp(char *s1, char *s2, int len);
 void				args_3_new(t_stack **head);
 int					get_instruction(t_stack **head, t_stack **b_head);
 void				args_4_new(int len, t_stack **head);
