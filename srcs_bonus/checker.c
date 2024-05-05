@@ -58,6 +58,7 @@ int	get_instruction(t_stack **head, t_stack **b_head)
 			if (line == NULL)
 				break ;
 			write(2, "Error\n", 6);
+			free(line);
 			return (-1);
 		}
 		apply_instruction(head, b_head, line);

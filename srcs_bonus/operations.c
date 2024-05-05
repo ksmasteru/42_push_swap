@@ -12,7 +12,7 @@
 
 #include "../includes/push_swap.h"
 
-void	args(int len, t_stack **head)
+void	args(int len, t_stack **head, int *values)
 {
 	if (len == 2)
 		return (args_2(head));
@@ -23,7 +23,7 @@ void	args(int len, t_stack **head)
 	if (len == 5)
 		return (args_5_new(len, head));
 	if (len > 5)
-		return (args_s(len, head));
+		return (args_s(len, head, values));
 }
 
 void	args_2(t_stack **head)
@@ -88,15 +88,13 @@ void	args_4_new(int len, t_stack **head)
 	pa(head, &b_head, 1);
 }
 
-void	args_s(int len, t_stack **head)
+void	args_s(int len, t_stack **head, int *values)
 {
 	t_stack	*b_head;
 	int		*sorted_array;
-	int		*arr;
 
 	b_head = NULL;
-	arr = stack_to_array((*head), len);
-	sorted_array = sort_array(arr, len);
+	sorted_array = sort_array(values, len);
 	empty_stack_a(head, &b_head, len, sorted_array);
 	empty_stack_b(head, &b_head, len);
 }
