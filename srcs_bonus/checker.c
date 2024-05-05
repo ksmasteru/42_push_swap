@@ -109,6 +109,8 @@ int	main(int ac, char **av)
 	head = ft_parse(ac, av);
 	len = stack_len(head);
 	values = stack_to_array(head, len);
+	if (!values)
+		ft_error(values, head, 0);
 	if (check_duplicates(values, len) < 0)
 		ft_error(values, head, 2);
 	free(values);
